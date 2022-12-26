@@ -1,11 +1,11 @@
 #include "template.h"
 #include "small_board.h"
 
-typedef struct SmallBoard{
-    int board_size;
-    char *tab;  //? convention: '.'-> empty, 'x' -> x, 'o' -> o
-    char game_won;      // and who won
-} SmallBoard;
+// typedef struct SmallBoard{
+//     int board_size;
+//     char *tab;  //? convention: '.'-> empty, 'x' -> x, 'o' -> o
+//     char game_won;      // and who won
+// } SmallBoard;
 
 void SmallBoard_init(SmallBoard *board, int board_size){
     board->board_size = board_size;
@@ -36,7 +36,7 @@ char SmallBoard_check_if_game_won(SmallBoard *board){        // and return who w
             }
         }
         return player;
-        row_loop:
+        row_loop:;
     }
 
     FOR(col, board->board_size){        // check cols
@@ -48,7 +48,7 @@ char SmallBoard_check_if_game_won(SmallBoard *board){        // and return who w
         }
         return player;
 
-        col_loop:
+        col_loop:;
     }
 
     char player = *(board->tab);        // check diagonals

@@ -1,6 +1,10 @@
 #include "template.h"
 
-typedef struct SmallBoard;
+typedef struct SmallBoard{
+    int board_size;
+    char *tab;  //? convention: '.'-> empty, 'x' -> x, 'o' -> o
+    char game_won;      // and who won
+} SmallBoard;
 
 void SmallBoard_init(SmallBoard *board, int board_size);
 void SmallBoard_delete(SmallBoard *board);
