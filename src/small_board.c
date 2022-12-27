@@ -12,7 +12,7 @@ void SmallBoard_init(SmallBoard *board, int board_size){
     board->tab = (char*)malloc(board_size*board_size*sizeof(char));
     FOR(board_size*board_size) *(board->tab + i) = '.';
 
-    board->game_won = false;
+    board->game_won = '.';
 }
 
 void SmallBoard_delete(SmallBoard *board){
@@ -30,6 +30,8 @@ bool SmallBoard_move_make(SmallBoard *board, int move, char player){       // tr
 char SmallBoard_check_if_game_won(SmallBoard *board){        // and return who won
     FOR(row, board->board_size){        // check rows
         char player = *(board->tab + row*board->board_size);
+        if(player == '.') goto row_loop;
+
         FOR(col, 1, board->board_size){
             if(*(board->tab + row*board->board_size + col) != player){
                 goto row_loop;
@@ -41,6 +43,8 @@ char SmallBoard_check_if_game_won(SmallBoard *board){        // and return who w
 
     FOR(col, board->board_size){        // check cols
         char player = *(board->tab + col);
+        if(player == '.') goto col_loop;
+
         FOR(row, 1, board->board_size){
             if(*(board->tab + col + row*board->board_size) != player){
                 goto col_loop;
@@ -52,6 +56,7 @@ char SmallBoard_check_if_game_won(SmallBoard *board){        // and return who w
     }
 
     char player = *(board->tab);        // check diagonals
+    if(player == '.') goto next_step;
     FOR(i, 1, board->board_size){
         if(*(board->tab + i + i*board->board_size) != player){
             goto next_step;
@@ -61,6 +66,7 @@ char SmallBoard_check_if_game_won(SmallBoard *board){        // and return who w
 
     next_step:
     player = *(board->tab + board->board_size - 1);
+    if(player == '.') return '.';
     FOR(i, 1, board->board_size){
         if(*(board->tab - i + i*board->board_size) != player){
             return '.';
