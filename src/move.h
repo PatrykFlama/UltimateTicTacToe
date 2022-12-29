@@ -6,6 +6,4 @@ typedef struct Move{
     bool is_empty;
 } Move;
 
-bool Move_is_empty(Move *move){
-    return move->is_empty;
-}
+bool Move_is_empty(Move *move);
