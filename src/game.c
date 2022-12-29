@@ -27,7 +27,9 @@ Player* Game_give_player(Game *game){
 }
 
 bool Game_player_move(Game *game){   // TODO: execute player move, true/false == success/or not
-    Move move = Player_move(Game_give_player(game));
+    Move move;
+    Player_move(&move, Game_give_player(game));
+
     if(!Move_is_empty(&move)){     // if player made move
         return BigBoard_move_make(game->board, move.board, move.cell, game->active_player);
         Game_player_made_move(game);
