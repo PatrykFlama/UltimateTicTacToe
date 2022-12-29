@@ -1,3 +1,6 @@
+#ifndef SMALL_BOARD
+#define SMALL_BOARD
+
 #include "template.h"
 
 typedef struct SmallBoard{
@@ -11,3 +14,5 @@ void SmallBoard_delete(SmallBoard *board);
 bool SmallBoard_move_make(SmallBoard *board, int move, char player);
 char SmallBoard_check_if_game_won(SmallBoard *board);
 char SmallBoard_won(SmallBoard *board);
+
+#endif

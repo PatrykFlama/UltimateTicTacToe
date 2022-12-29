@@ -1,3 +1,6 @@
+#ifndef BIG_BOARD
+#define BIG_BOARD
+
 #include "template.h"
 #include "small_board.h"
 
@@ -12,3 +15,5 @@ void BigBoard_init(BigBoard *board, int board_size);
 void BigBoard_delete(BigBoard *board);
 char BigBoard_check_if_game_won(BigBoard *board);
 char BigBoard_won(SmallBoard *board);
+
+#endif

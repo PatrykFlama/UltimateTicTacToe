@@ -1,3 +1,6 @@
+#ifndef PLAYER
+#define PLAYER
+
 #include "template.h"
 #include "move.h"
 // #include "terminal_input.h"
@@ -19,3 +22,5 @@ void Player_move(Move *move, Player *player){
     move->cell = 1;
     move->is_empty = false;
 }
+
+#endif

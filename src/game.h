@@ -1,3 +1,6 @@
+#ifndef GAME
+#define GAME
+
 #include "template.h"
 #include "big_board.h"
 #include "move.h"       // TODO
@@ -17,3 +20,5 @@ bool Game_player_move(Game *game);   // execute player move, true/false == succe
 void Game_player_made_move(Game *game);     // check if game won, switch active players
 
 // TODO: functions to give info for bot
+
+#endif

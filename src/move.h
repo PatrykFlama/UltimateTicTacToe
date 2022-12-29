@@ -1,3 +1,6 @@
+#ifndef MOVE
+#define MOVE
+
 #include "template.h"
 
 typedef struct Move{
@@ -7,3 +10,5 @@ typedef struct Move{
 } Move;
 
 bool Move_is_empty(Move *move);
+
+#endif

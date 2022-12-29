@@ -1,3 +1,6 @@
+#ifndef TEMPLATE
+#define TEMPLATE
+
 // #region
 /* --- LIBRARIES --- */
 #include <stdbool.h>
@@ -28,3 +31,5 @@
 /* --- MISC --- */
 #define nl putchar('\n')
 // #endregion
+
+#endif
