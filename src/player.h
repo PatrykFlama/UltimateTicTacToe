@@ -5,7 +5,8 @@
 // #incdlue "bot_input.h"
 
 typedef struct Player{
-    char type;      // t - terminal, g - gui, b - bot
+    char type;      // t - terminal1, g - gui1, b - bot1
+                    // T - terminal2, G - gui2, B - bot2
 } Player;
 
 void Player_init(Player *player, char _type){
