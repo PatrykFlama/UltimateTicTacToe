@@ -1,4 +1,5 @@
 #include "template.h"
+#include "small_board.h"
 
 typedef struct BigBoard{
     int board_size;
