@@ -19,9 +19,9 @@ void SmallBoard_delete(SmallBoard *board){
     free(board->tab);
 }
 
-bool SmallBoard_move_make(SmallBoard *board, int move, char player){       // true - move made; false - move is illegal
-    if(*(board->tab + move) == '.'){
-        *(board->tab + move) = player;
+bool SmallBoard_move_make(SmallBoard *board, int which_cell, char player){       // true - move made; false - move is illegal
+    if(*(board->tab + which_cell) == '.'){
+        *(board->tab + which_cell) = player;
         return true;
     }
     return false;

@@ -22,7 +22,12 @@ void BigBoard_init(BigBoard *board, int board_size){
 }
 
 void BigBoard_delete(BigBoard *board){
+    FOR(board->board_size*board->board_size) SmallBoard_delete((board->tab + i * sizeof(SmallBoard)));
     free(board->tab);
+}
+
+bool BigBoard_move_make(BigBoard *board, int which_board, int which_cell, char player){     // ture - move succeeded, false - desired cell is occupied
+    return SmallBoard_move_make((board->tab + which_board*sizeof(SmallBoard)), which_cell, player);
 }
 
 char BigBoard_check_if_game_won(BigBoard *board){        // and return who won
@@ -74,7 +79,7 @@ char BigBoard_check_if_game_won(BigBoard *board){        // and return who won
 }
 
 char BigBoard_won(SmallBoard *board){                     // check who won, save it and return it
-    char player = SmallBoard_check_if_game_won(board);
+    char player = BigBoard_check_if_game_won(board);
     board->game_won = player;
     return player;
 }
