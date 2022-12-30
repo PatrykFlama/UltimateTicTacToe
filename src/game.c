@@ -3,6 +3,7 @@
 #include "move.h"
 #include "player.h"
 #include "game.h"
+#include "ui.h"
 
 // typedef struct Game{
 //     Player playero, playerx;
@@ -38,5 +39,6 @@ bool Game_player_move(Game *game){   // TODO: execute player move, true/false ==
 
 void Game_player_made_move(Game *game){     // check if game won, switch active players
     game->game_won = BigBoard_won(&(game->board));
-    if(game->game_won == '.') Player_swap(game->active_player);
+    if(game->game_won == '.') Player_swap(&(game->active_player));
+    Ui_update(game);    // TODO
 }

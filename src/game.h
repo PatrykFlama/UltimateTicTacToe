@@ -5,6 +5,7 @@
 #include "big_board.h"
 #include "move.h"       // TODO
 #include "player.h"     // TODO
+#include "ui.h"         // TODO
 
 typedef struct Game{
     Player *playero, *playerx;
