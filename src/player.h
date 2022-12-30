@@ -23,4 +23,6 @@ void Player_move(Move *move, Player *player){
     move->is_empty = false;
 }
 
+void Player_swap(char player);
+
 #endif
