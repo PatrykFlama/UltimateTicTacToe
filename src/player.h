@@ -8,12 +8,12 @@
 // #incdlue "bot_input.h"
 
 typedef struct Player{
-    char type;      // t - terminal1, g - gui1, b - bot1
+    char input_type;      // t - terminal1, g - gui1, b - bot1
                     // T - terminal2, G - gui2, B - bot2
 } Player;
 
-void Player_init(Player *player, char _type){
-    player->type = _type;
+void Player_init(Player *player, char _input_type){
+    player->input_type = _input_type;
 }
 
 void Player_move(Move *move, Player *player){
