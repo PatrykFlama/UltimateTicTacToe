@@ -16,27 +16,31 @@ void BigBoard_init(BigBoard *board, int board_size){
     // https://stackoverflow.com/questions/19613752/how-to-properly-malloc-for-array-of-struct-in-c
     board->tab = (SmallBoard*)malloc(board_size*board_size*sizeof(SmallBoard));
 
-    FOR(board_size*board_size) SmallBoard_init((board->tab + i * sizeof(SmallBoard)), board->board_size);
+    FOR(board_size*board_size) SmallBoard_init(BigBoard_choose_SmallBoard(board, 0, i), board->board_size);
 
     board->game_won = '.';
 }
 
+SmallBoard *BigBoard_choose_SmallBoard(BigBoard *board, int row, int col){
+    return board->tab + (row*board->board_size + col) * sizeof(SmallBoard);
+}
+
 void BigBoard_delete(BigBoard *board){
-    FOR(board->board_size*board->board_size) SmallBoard_delete((board->tab + i * sizeof(SmallBoard)));
+    FOR(board->board_size*board->board_size) SmallBoard_delete(BigBoard_choose_SmallBoard(board, 0, i));
     free(board->tab);
 }
 
 bool BigBoard_move_make(BigBoard *board, int which_board, int which_cell, char player){     // ture - move succeeded, false - desired cell is occupied
-    return SmallBoard_move_make((board->tab + which_board*sizeof(SmallBoard)), which_cell, player);
+    return SmallBoard_move_make(BigBoard_choose_SmallBoard(board, 0, which_board), which_cell, player);
 }
 
 char BigBoard_check_if_game_won(BigBoard *board){        // and return who won
     FOR(row, board->board_size){        // check rows
-        char player = (board->tab + row*board->board_size)->game_won;
+        char player = BigBoard_choose_SmallBoard(board, row, 0)->game_won;
         if(player == '.') goto row_loop;
 
         FOR(col, 1, board->board_size){
-            if((board->tab + row*board->board_size + col)->game_won != player){
+            if(BigBoard_choose_SmallBoard(board, row, col)->game_won != player){
                 goto row_loop;
             }
         }
@@ -45,11 +49,11 @@ char BigBoard_check_if_game_won(BigBoard *board){        // and return who won
     }
 
     FOR(col, board->board_size){        // check cols
-        char player = (board->tab + col)->game_won;
+        char player = BigBoard_choose_SmallBoard(board, 0, col)->game_won;
         if(player == '.') goto col_loop;
 
         FOR(row, 1, board->board_size){
-            if((board->tab + col + row*board->board_size)->game_won != player){
+            if(BigBoard_choose_SmallBoard(board, row, col)->game_won != player){
                 goto col_loop;
             }
         }
@@ -58,20 +62,20 @@ char BigBoard_check_if_game_won(BigBoard *board){        // and return who won
         col_loop:;
     }
 
-    char player = (board->tab)->game_won;        // check diagonals
+    char player = BigBoard_choose_SmallBoard(board, 0, 0)->game_won;        // check diagonals
     if(player == '.') goto next_step;
     FOR(i, 1, board->board_size){
-        if((board->tab + i + i*board->board_size)->game_won != player){
+        if(BigBoard_choose_SmallBoard(board, i, i)->game_won != player){
             goto next_step;
         }
     }
     return player;
 
     next_step:
-    player = (board->tab + board->board_size - 1)->game_won;
+    player = BigBoard_choose_SmallBoard(board, 0, board->board_size - 1)->game_won;
     if(player == '.') return '.';
     FOR(i, 1, board->board_size){
-        if((board->tab - i + i*board->board_size)->game_won != player){
+        if(BigBoard_choose_SmallBoard(board, i, -i)->game_won != player){
             return '.';
         }
     }
