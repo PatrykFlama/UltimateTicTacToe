@@ -13,7 +13,6 @@ void Ui_update(Ui *ui, Game *game){
     Ui_draw(game, ui->ui_mode);
 }
 
-
 void Ui_draw(Game *game, char mode){
     Ui_draw_BigBoard(&(game->board), mode);
 }
