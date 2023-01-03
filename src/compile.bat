@@ -4,3 +4,4 @@ gcc -c move.c
 gcc -c player.c
 gcc -c ui.c
 gcc -c game.c
+gcc -c main.c

@@ -32,13 +32,15 @@ Player* Game_give_active_player(Game *game){
     return game->playerx;
 }
 
-bool Game_player_move(Game *game){   // TODO: execute player move, true/false == success/or not
+bool Game_player_move(Game *game){
     Move move;
     Player_get_move(Game_give_active_player(game), &move);
 
     if(!Move_is_empty(&move)){     // if player made move
-        return BigBoard_move_make(game->board, move.board, move.cell, game->active_player);
-        Game_player_made_move(game);
+        bool success = BigBoard_move_make(&game->board, move.board, move.cell, game->active_player);
+        if(success)
+            Game_player_made_move(game);
+        return success;
     }
 }
 
@@ -46,4 +48,18 @@ void Game_player_made_move(Game *game){     // check if game won, switch active 
     game->game_won = BigBoard_won(&(game->board));
     if(game->game_won == '.') Player_swap(&(game->active_player));
     Ui_update(game->ui, game);
+    
+    if(game->game_won != '.') Game_end(game);
+}
+
+bool Game_tick(Game *game){
+    Game_player_move(game);
+    if(game->game_won != '.') return true;
+    return false;
+}
+
+void Game_over(Game *game){
+    printf("Game over\n");  // TODO: print game over screen
+
+    Game_end(game);
 }

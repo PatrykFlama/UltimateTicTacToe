@@ -40,6 +40,8 @@ void Ui_draw_BigBoard(BigBoard *board, char mode){
                 Ui_print('+', mode);
             }
         }
+
+        Ui_print('\n', mode);
     }
 }
 
