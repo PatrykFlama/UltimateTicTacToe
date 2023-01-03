@@ -3,9 +3,9 @@
 
 #include "template.h"
 #include "big_board.h"
-#include "move.h"       // TODO
-#include "player.h"     // TODO
-#include "ui.h"         // TODO
+#include "move.h"
+#include "player.h"
+#include "ui.h"
 
 typedef struct Game{
     Player *playero, *playerx;
@@ -21,6 +21,7 @@ void Game_end(Game *game);    // end game
 Player* Game_give_active_player(Game *game);
 bool Game_player_move(Game *game);   // execute player move, true/false == success/or not
 void Game_player_made_move(Game *game);     // check if game won, switch active players
+bool Game_tick(Game *game);
 
 // TODO: functions to give info for bot
 

@@ -1,5 +1,4 @@
 #include "template.h"
-#include "small_board.h"
 #include "big_board.h"
 
 // typedef struct BigBoard{
@@ -82,7 +81,7 @@ char BigBoard_check_if_game_won(BigBoard *board){        // and return who won
     return player;
 }
 
-char BigBoard_won(SmallBoard *board){                     // check who won, save it and return it
+char BigBoard_won(BigBoard *board){                     // check who won, save it and return it
     char player = BigBoard_check_if_game_won(board);
     board->game_won = player;
     return player;

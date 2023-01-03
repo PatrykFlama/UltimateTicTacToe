@@ -1,5 +1,5 @@
 #include "template.h"
-#include "game.h"
+#include "ui.h"
 
 // typedef struct Ui{
 //     char ui_mode;       // t - terminal, g - gui
@@ -9,12 +9,12 @@ void Ui_init(Ui *ui, char _ui_mode){
     ui->ui_mode = _ui_mode;
 }
 
-void Ui_update(Ui *ui, Game *game){
-    Ui_draw(game, ui->ui_mode);
+void Ui_draw(BigBoard *board, char mode){
+    Ui_draw_BigBoard(board, mode);
 }
 
-void Ui_draw(Game *game, char mode){
-    Ui_draw_BigBoard(&(game->board), mode);
+void Ui_update(Ui *ui, BigBoard *board){
+    Ui_draw(board, ui->ui_mode);
 }
 
 void Ui_draw_BigBoard(BigBoard *board, char mode){
@@ -49,7 +49,7 @@ void Ui_draw_SmallBoard(SmallBoard *board, char mode, int row){
     if(row%2 == 0){
         row /= 2;
         FOR(col, board->board_size){
-            Ui_print(&(board->tab + (col + row*board->board_size)*sizeof(char)), mode);
+            Ui_print(*(board->tab + (col + row*board->board_size)*sizeof(char)), mode);
             if(col != board->board_size-1){
                 Ui_print('|', mode);
             }

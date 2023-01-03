@@ -3,9 +3,6 @@
 
 #include "template.h"
 #include "move.h"
-// #include "terminal_input.h"
-// #include "gui_input.h"
-// #incdlue "bot_input.h"
 
 typedef struct Player{
     char input_type;      // t - terminal1, g - gui1, b - bot1

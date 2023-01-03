@@ -1,9 +1,6 @@
 #include "template.h"
-#include "big_board.h"
-#include "move.h"
-#include "player.h"
 #include "game.h"
-#include "ui.h"
+
 
 // typedef struct Game{
 //     Player *playero, *playerx;
@@ -47,7 +44,7 @@ bool Game_player_move(Game *game){
 void Game_player_made_move(Game *game){     // check if game won, switch active players
     game->game_won = BigBoard_won(&(game->board));
     if(game->game_won == '.') Player_swap(&(game->active_player));
-    Ui_update(game->ui, game);
+    Ui_update(game->ui, &(game->board));
     
     if(game->game_won != '.') Game_end(game);
 }

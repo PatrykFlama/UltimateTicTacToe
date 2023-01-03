@@ -1,8 +1,4 @@
 #include "template.h"
-#include "move.h"
-// #include "terminal_input.h"
-// #include "gui_input.h"
-// #incdlue "bot_input.h"
 #include "player.h"
 
 // typedef struct Player{
