@@ -34,7 +34,7 @@ Player* Game_give_active_player(Game *game){
 
 bool Game_player_move(Game *game){   // TODO: execute player move, true/false == success/or not
     Move move;
-    Player_move(&move, Game_give_active_player(game));
+    Player_get_move(Game_give_active_player(game), &move);
 
     if(!Move_is_empty(&move)){     // if player made move
         return BigBoard_move_make(game->board, move.board, move.cell, game->active_player);
@@ -45,5 +45,5 @@ bool Game_player_move(Game *game){   // TODO: execute player move, true/false ==
 void Game_player_made_move(Game *game){     // check if game won, switch active players
     game->game_won = BigBoard_won(&(game->board));
     if(game->game_won == '.') Player_swap(&(game->active_player));
-    Ui_update(game->ui, game);    // TODO
+    Ui_update(game->ui, game);
 }

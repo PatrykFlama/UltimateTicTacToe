@@ -7,17 +7,23 @@
 
 // typedef struct Player{
 //     char input_type;      // t - terminal1, g - gui1, b - bot1
-//                     // T - terminal2, G - gui2, B - bot2
 // } Player;
 
-void Player_init(Player *player, char _input_type){
+void Player_init(Player *player, char _input_type, char _player_char){
     player->input_type = _input_type;
+    player->player_char = _player_char;
 }
 
-void Player_move(Move *move, Player *player){
+void Player_get_move(Player *player, Move *move){
     // TODO: get input from desired source
-    move->board = 1;
-    move->cell = 1;
+    if(player->input_type == 't'){
+        scanf(" %d %d", move->board, move->cell);
+    } else if(player->input_type == 'g'){
+        // TODO gui input
+    } else{
+        // TODO bot input
+    }
+
     move->is_empty = false;
 }
 
