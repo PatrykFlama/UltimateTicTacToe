@@ -27,14 +27,14 @@ void Game_end(Game *game){    // end game
     BigBoard_delete(&(game->board));
 }
 
-Player* Game_give_player(Game *game){
+Player* Game_give_active_player(Game *game){
     if(game->active_player == 'o') return game->playero;
     return game->playerx;
 }
 
 bool Game_player_move(Game *game){   // TODO: execute player move, true/false == success/or not
     Move move;
-    Player_move(&move, Game_give_player(game));
+    Player_move(&move, Game_give_active_player(game));
 
     if(!Move_is_empty(&move)){     // if player made move
         return BigBoard_move_make(game->board, move.board, move.cell, game->active_player);
