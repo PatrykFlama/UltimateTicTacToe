@@ -5,12 +5,12 @@
 /* --- LIBRARIES --- */
 #include <stdbool.h>
 #include <stdio.h>
-#include <string.h>
-#include <math.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <stddef.h>
-#include <float.h>
+// #include <string.h>
+// #include <math.h>
+// #include <ctype.h>
+// #include <stddef.h>
+// #include <float.h>
 
 /* --- SUPERFOR --- */
 #define GET_MACRO_FOR(_1, _2, _3, _4, NAME, ...) NAME
