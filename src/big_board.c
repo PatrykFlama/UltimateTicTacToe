@@ -10,9 +10,6 @@
 
 void BigBoard_init(BigBoard *board, int board_size){
     board->board_size = board_size;
-    // TODO: dynamically allocate SmallBoard tab memory
-    // board->tab = malloc(board_size*board_size*sizeof(SmallBoard));
-    // https://stackoverflow.com/questions/19613752/how-to-properly-malloc-for-array-of-struct-in-c
     board->tab = (SmallBoard*)malloc(board_size*board_size*sizeof(SmallBoard));
 
     FOR(board_size*board_size) SmallBoard_init(BigBoard_choose_SmallBoard(board, 0, i), board->board_size);
