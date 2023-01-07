@@ -18,6 +18,8 @@ void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, int game
     game->active_player = 'o';  // 'o' makes first move
     game->ui = _ui;
     game->game_won = '.';
+
+    Ui_update(game->ui, &(game->board));
 }
 
 void Game_end(Game *game){    // end game
