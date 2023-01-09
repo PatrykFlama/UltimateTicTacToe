@@ -33,22 +33,22 @@ Player* Game_give_active_player(Game *game){
 }
 
 bool Game_player_move(Game *game){
-    Move move;
-    Player_get_move(Game_give_active_player(game), &move);
-
-    if(!Move_is_empty(&move)){     // if player made move
-        bool success = BigBoard_move_make(game->board, move.board, move.cell, game->active_player);
-        if(success)
-            Game_player_made_move(game);
-        return success;
+    if(game->ui->ui_mode == 't'){
+        char *str = "Give coordinates of big board, then small board: ";
+        Ui_print_string(str, 't');
     }
+    Move move = Player_get_move(Game_give_active_player(game), game->board->board_size);
+
+    bool success = BigBoard_move_make(game->board, move.board, move.cell, game->active_player);
+    if(success) Game_player_made_move(game);
+    return success;
 }
 
 void Game_player_made_move(Game *game){     // check if game won, switch active players
     game->game_won = BigBoard_won(game->board);
     if(game->game_won == '.') Player_swap(&(game->active_player));
     Ui_update(game->ui, game->board);
-    
+
     if(game->game_won != '.') Game_end(game);
 }
 

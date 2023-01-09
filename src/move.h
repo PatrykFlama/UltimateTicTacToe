@@ -6,9 +6,6 @@
 typedef struct Move{
     int board;
     int cell;
-    bool is_empty;
 } Move;
-
-bool Move_is_empty(Move *move);
 
 #endif

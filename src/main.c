@@ -12,8 +12,8 @@ int main(int argc, char** argv){
     // TODO: menu
 
     Player player1, player2;
-    Player_init(&player1, 't', 'o');
-    Player_init(&player2, 't', 'x');
+    Player_init(&player1, 't');
+    Player_init(&player2, 't');
     
     Ui ui;
     Ui_init(&ui, 't');

@@ -63,6 +63,11 @@ void Ui_print(char c, char mode){
     else Ui_print_gui(c);
 }
 
+void Ui_print_string(char *str, char mode){
+    int ptr = 0;
+    while(*(str+ptr) != '\0') Ui_print(*(str+ptr++), mode);
+}
+
 void Ui_print_terminal(char c){
     putchar(c);
 }
