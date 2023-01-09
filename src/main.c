@@ -28,7 +28,7 @@ int main(int argc, char** argv){
     Game_init(&game, &player1, &player2, &ui, 3, &board);
 
 
-    while(Game_tick(&game)){}
+    while(!Game_tick(&game)){}
     Game_end(&game);
     printf("Out of main loop\n");
 }
