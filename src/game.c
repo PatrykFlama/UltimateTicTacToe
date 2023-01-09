@@ -34,10 +34,12 @@ Player* Game_give_active_player(Game *game){
 
 bool Game_player_move(Game *game){
     if(game->ui->ui_mode == 't'){
-        char *str = "Give coordinates of big board, then small board: ";
+        char *str = "Give coordinates of big board, then small board (first row, then column): ";
         Ui_print_string(str, 't');
     }
     Move move = Player_get_move(Game_give_active_player(game), game->board->board_size);
+
+    // TODO: force player to play in appropriate cell
 
     bool success = BigBoard_move_make(game->board, move.board, move.cell, game->active_player);
     if(success) Game_player_made_move(game);
