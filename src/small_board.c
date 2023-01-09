@@ -20,6 +20,7 @@ void SmallBoard_delete(SmallBoard *board){
 }
 
 bool SmallBoard_move_make(SmallBoard *board, int which_cell, char player){       // true - move made; false - move is illegal
+    if(which_cell >= board->board_size*board->board_size) return false;
     if(*(board->tab + which_cell) == '.'){
         *(board->tab + which_cell) = player;
         return true;
