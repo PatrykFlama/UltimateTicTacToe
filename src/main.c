@@ -17,8 +17,26 @@ int main(){
     Ui_init(&ui, 't');
 
     Game game;
-    Game_init(&game, &player1, &player2, &ui, 3);
+
+    printf("Running smth\n");
+    // SmallBoard boards[9];
+    BigBoard board;
+    // board.tab = boards;
+
+    BigBoard_init(&board, 3);
+    game.board = &board;
+    *((*(game.board)).tab[0].tab) = 'y';
+    *(board.tab[0].tab+1) = 'z';
+    // *((*(game.board)).tab[1].tab) = 'z';
+    // printf("Char: %c\n", *((*(game.board)).tab[1].tab));
+    *(board.tab[1].tab) = 'x';
+    printf("Char: %c\n", *(board.tab[1].tab));
+    
+    //! Game_init(&game, &player1, &player2, &ui, 3);
+    Game_init(&game, &player1, &player2, &ui, 3, &board);
+
 
     while(Game_tick(&game)){}
+    Game_end(&game);
     printf("Out of main loop\n");
 }

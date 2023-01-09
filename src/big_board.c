@@ -10,7 +10,7 @@
 
 void BigBoard_init(BigBoard *board, int board_size){
     board->board_size = board_size;
-    board->tab = (SmallBoard*)malloc(board_size*board_size*sizeof(SmallBoard));
+    board->tab = malloc(board_size*board_size*sizeof(SmallBoard));
 
     FOR(board_size*board_size) SmallBoard_init(BigBoard_choose_SmallBoard(board, 0, i), board->board_size);
 
@@ -18,7 +18,9 @@ void BigBoard_init(BigBoard *board, int board_size){
 }
 
 SmallBoard *BigBoard_choose_SmallBoard(BigBoard *board, int row, int col){
-    return board->tab + (row*board->board_size + col) * sizeof(SmallBoard);
+    // printf("Returning small board: row %d,  col %d, board nr %d\n", row, col, row*board->board_size + col);
+    // return board->tab + (row*board->board_size + col) * sizeof(SmallBoard);
+    return &((*(board->tab))[row*board->board_size + col]);
 }
 
 void BigBoard_delete(BigBoard *board){

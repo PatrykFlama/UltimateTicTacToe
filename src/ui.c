@@ -27,26 +27,30 @@ void Ui_draw_BigBoard(BigBoard *board, char mode){
                     Ui_print('|', mode);
                 }
             }
+            Ui_print('\n', mode);
         }
 
         if(row != board->board_size-1){
-            FOR(2)
-            FOR(cell, board->board_size){       // print *THICK* parallel lines
-                FOR(cells, board->board_size){
+            FOR(2){
+                FOR(cell, board->board_size){       // print *THICK* parallel lines
+                    FOR(cells, board->board_size-1){
+                        Ui_print('-', mode);
+                        Ui_print('-', mode);
+                    }
                     Ui_print('-', mode);
-                    Ui_print('-', mode);
+                    if(cell < board->board_size-1){
+                        Ui_print('+', mode);
+                        Ui_print('+', mode);
+                    }
                 }
-                Ui_print('+', mode);
-                Ui_print('+', mode);
+                Ui_print('\n', mode);
             }
         }
-
-        Ui_print('\n', mode);
     }
 }
 
 void Ui_draw_SmallBoard(SmallBoard *board, char mode, int row){
-    if(row%2 == 0){
+    // if(row%2 == 0){
         row /= 2;
         FOR(col, board->board_size){
             Ui_print(*(board->tab + (col + row*board->board_size)*sizeof(char)), mode);
@@ -54,16 +58,16 @@ void Ui_draw_SmallBoard(SmallBoard *board, char mode, int row){
                 Ui_print('|', mode);
             }
         }
-    } else{
-        FOR(col, board->board_size){
-            Ui_print('-', mode);
-            if(col != board->board_size-1){
-                Ui_print('-', mode);
-            } else {
-                Ui_print('+', mode);
-            }
-        }
-    }
+    // } else{
+    //     FOR(col, board->board_size){
+    //         Ui_print('-', mode);
+    //         if(col != board->board_size-1){
+    //             Ui_print('-', mode);
+    //         } else {
+    //             Ui_print('+', mode);
+    //         }
+    //     }
+    // }
 }
 
 void Ui_print(char c, char mode){
