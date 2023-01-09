@@ -25,7 +25,6 @@ int main(int argc, char** argv){
     board.tab = boards;
     BigBoard_init(&board, board_size);    
     
-    //! Game_init(&game, &player1, &player2, &ui, 3);
     Game_init(&game, &player1, &player2, &ui, 3, &board);
 
 

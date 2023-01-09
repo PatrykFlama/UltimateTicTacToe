@@ -18,8 +18,6 @@ void BigBoard_init(BigBoard *board, int board_size){
 }
 
 SmallBoard *BigBoard_choose_SmallBoard(BigBoard *board, int row, int col){
-    // printf("Returning small board: row %d,  col %d, board nr %d\n", row, col, row*board->board_size + col);
-    // return board->tab + (row*board->board_size + col) * sizeof(SmallBoard);
     return &((board->tab)[row*board->board_size + col]);
 }
 
