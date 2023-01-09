@@ -19,9 +19,9 @@ int main(){
     Game game;
 
     printf("Running smth\n");
-    // SmallBoard boards[9];
+    SmallBoard boards[9];
     BigBoard board;
-    // board.tab = boards;
+    board.tab = boards;
 
     BigBoard_init(&board, 3);
     game.board = &board;
