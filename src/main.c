@@ -6,31 +6,24 @@
 #include "ui.h"
 #include "game.h"
 
-int main(){
+int main(int argc, char** argv){
+    int board_size = 3;
+    if(argc > 1) board_size = atoi(argv[1]);
     // TODO: menu
 
     Player player1, player2;
     Player_init(&player1, 't', 'o');
-    Player_init(&player2, 't', 'o');
+    Player_init(&player2, 't', 'x');
     
     Ui ui;
     Ui_init(&ui, 't');
 
     Game game;
 
-    printf("Running smth\n");
-    SmallBoard boards[9];
+    SmallBoard boards[board_size*board_size];
     BigBoard board;
     board.tab = boards;
-
-    BigBoard_init(&board, 3);
-    game.board = &board;
-    *((*(game.board)).tab[0].tab) = 'y';
-    *(board.tab[0].tab+1) = 'z';
-    // *((*(game.board)).tab[1].tab) = 'z';
-    // printf("Char: %c\n", *((*(game.board)).tab[1].tab));
-    *(board.tab[1].tab) = 'x';
-    printf("Char: %c\n", *(board.tab[1].tab));
+    BigBoard_init(&board, board_size);    
     
     //! Game_init(&game, &player1, &player2, &ui, 3);
     Game_init(&game, &player1, &player2, &ui, 3, &board);

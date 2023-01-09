@@ -19,7 +19,7 @@ void Ui_update(Ui *ui, BigBoard *board){
 
 void Ui_draw_BigBoard(BigBoard *board, char mode){
     FOR(row, board->board_size){
-        FOR(line, board->board_size*2-1){
+        FOR(line, board->board_size){
             FOR(col, board->board_size){
                 Ui_draw_SmallBoard(BigBoard_choose_SmallBoard(board, row, col), mode, line);
                 if(col != board->board_size-1){
@@ -50,24 +50,12 @@ void Ui_draw_BigBoard(BigBoard *board, char mode){
 }
 
 void Ui_draw_SmallBoard(SmallBoard *board, char mode, int row){
-    // if(row%2 == 0){
-        row /= 2;
-        FOR(col, board->board_size){
-            Ui_print(*(board->tab + (col + row*board->board_size)*sizeof(char)), mode);
-            if(col != board->board_size-1){
-                Ui_print('|', mode);
-            }
+    FOR(col, board->board_size){
+        Ui_print(*(board->tab + (col + row*board->board_size)*sizeof(char)), mode);
+        if(col != board->board_size-1){
+            Ui_print('|', mode);
         }
-    // } else{
-    //     FOR(col, board->board_size){
-    //         Ui_print('-', mode);
-    //         if(col != board->board_size-1){
-    //             Ui_print('-', mode);
-    //         } else {
-    //             Ui_print('+', mode);
-    //         }
-    //     }
-    // }
+    }
 }
 
 void Ui_print(char c, char mode){
