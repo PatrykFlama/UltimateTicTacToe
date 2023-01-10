@@ -30,15 +30,17 @@ static const char * const TerminalColorsNames[] = {
 
 typedef struct Ui{
     char ui_mode;       // t - terminal, g - gui
+    enum TerminalColors color_x, color_o, color_empty, color_empty_active;
+    int *active_board;
 } Ui;
 
-void Ui_init(Ui *ui, char _ui_mode);
+void Ui_init(Ui *ui, char _ui_mode, int *_active_board);
 void Ui_update(Ui *ui, BigBoard *board);
 
 void Ui_clear(char mode);
-void Ui_draw(BigBoard *board, char mode);
-void Ui_draw_BigBoard(BigBoard *board, char mode);
-void Ui_draw_SmallBoard(SmallBoard *board, char mode, int line);
+void Ui_draw(Ui *ui, BigBoard *board);
+void Ui_draw_BigBoard(Ui *ui, BigBoard *board);
+void Ui_draw_SmallBoard(Ui *ui, SmallBoard *board, int row);
 
 void Ui_print_color(char c, char mode, enum TerminalColors color);
 #define Ui_print(c, mode) Ui_print_color(c, mode, White)

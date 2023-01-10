@@ -16,8 +16,6 @@ int main(int argc, char** argv){
     Player_init(&player2, 't');
     
     Ui ui;
-    Ui_init(&ui, 't');
-
     Game game;
 
     SmallBoard boards[board_size*board_size];

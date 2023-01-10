@@ -11,7 +11,7 @@ void BigBoard_init(BigBoard *board, int board_size){
     board->board_size = board_size;
     board->tab = malloc(board_size*board_size*sizeof(SmallBoard));
 
-    FOR(board_size*board_size) SmallBoard_init(BigBoard_choose_SmallBoard(board, 0, i), board->board_size);
+    FOR(board_size*board_size) SmallBoard_init(BigBoard_choose_SmallBoard(board, 0, i), board->board_size, i);
 
     board->game_won = '.';
 }

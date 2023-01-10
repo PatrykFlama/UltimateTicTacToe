@@ -4,10 +4,11 @@
 
 // typedef struct Game{
 //     Player *playero, *playerx;
-//     BigBoard board;
+//     BigBoard *board;
 //     Ui *ui;
 //     char active_player;     // player, whos turn is now
 //     char game_won;          // '.' -> no, 'x' / 'o'
+//     Move last_move;
 // } Game;
 
 
@@ -21,6 +22,7 @@ void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, int game
     game->game_won = '.';
     Move move = {-1, -1};
     game->last_move = move;
+    Ui_init(game->ui, 't', &(game->last_move.cell));
 
     Ui_update(game->ui, game->board);
 }
@@ -53,8 +55,8 @@ bool Game_player_move(Game *game){
             Ui_print(player_won, game->ui->ui_mode);
             Ui_print_string("!\n", game->ui->ui_mode);
         }
-        Game_player_made_move(game);
         game->last_move = move;
+        Game_player_made_move(game);
     } else{
         Ui_update(game->ui, game->board);
         Ui_print_string("Wrong move!\n", game->ui->ui_mode);
@@ -77,7 +79,8 @@ bool Game_tick(Game *game){
 }
 
 void Game_over(Game *game){
-    printf("Game over\n");  // TODO: print game over screen
-
+    Ui_print_string("Game over! ", game->ui->ui_mode);
+    Ui_print_color(game->active_player, game->ui->ui_mode, (game->active_player == 'x' ? game->ui->color_x : game->ui->color_o));
+    Ui_print_string("Game over! ", game->ui->ui_mode);
     Game_end(game);
 }

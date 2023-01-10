@@ -7,10 +7,11 @@
 //     char game_won;      // and who won
 // } SmallBoard;
 
-void SmallBoard_init(SmallBoard *board, int board_size){
-    board->board_size = board_size;
-    board->tab = (char*)malloc(board_size*board_size*sizeof(char));
-    FOR(board_size*board_size) *(board->tab + i) = '.';
+void SmallBoard_init(SmallBoard *board, int _board_size, int _board_number){
+    board->board_number = _board_number;
+    board->board_size = _board_size;
+    board->tab = (char*)malloc(_board_size*_board_size*sizeof(char));
+    FOR(_board_size*_board_size) *(board->tab + i) = '.';
 
     board->game_won = '.';
 }
