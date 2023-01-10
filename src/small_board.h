@@ -7,7 +7,7 @@ typedef struct SmallBoard{
     int board_size;
     int board_number;
     char *tab;  //? convention: '.'-> empty, 'x' -> x, 'o' -> o
-    char game_won;      // and who won
+    char game_won;      // who won the game '.' -> no one
 } SmallBoard;
 
 void SmallBoard_init(SmallBoard *board, int _board_size, int _board_number);

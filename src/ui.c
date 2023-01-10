@@ -2,7 +2,10 @@
 
 // typedef struct Ui{
 //     char ui_mode;       // t - terminal, g - gui
+//     enum TerminalColors color_x, color_o, color_empty, color_empty_active;
+//     int *active_board;
 // } Ui;
+
 
 void Ui_init(Ui *ui, char _ui_mode, int *_active_board){
     ui->ui_mode = _ui_mode;
