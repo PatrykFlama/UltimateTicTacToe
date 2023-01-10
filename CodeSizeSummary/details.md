@@ -6,7 +6,7 @@ Directory UltimateTicTacToe\\src
 
 Total : 16 files,  472 codes, 50 comments, 115 blanks, all 637 lines
 
-[Summary](results.md) / Details
+[Summary](README.md) / Details
 
 ## Files
 | filename | language | code | comment | blank | total |
@@ -28,4 +28,4 @@ Total : 16 files,  472 codes, 50 comments, 115 blanks, all 637 lines
 | [src/ui.c](/src/ui.c) | C | 88 | 7 | 16 | 111 |
 | [src/ui.h](/src/ui.h) | C | 44 | 0 | 9 | 53 |
 
-[Summary](results.md) / Details
+[Summary](README.md) / Details
