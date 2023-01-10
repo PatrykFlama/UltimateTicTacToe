@@ -60,27 +60,32 @@ void Ui_draw_BigBoard(BigBoard *board, char mode){
 
 void Ui_draw_SmallBoard(SmallBoard *board, char mode, int row){
     FOR(col, board->board_size){
-        Ui_print(*(board->tab + (col + row*board->board_size)*sizeof(char)), mode);
+        char player = *(board->tab + (col + row*board->board_size)*sizeof(char));
+        Ui_print_color(player, mode, (player == 'x' ? Red : (player == 'o' ? Green : Cyan)));
         if(col != board->board_size-1){
-            Ui_print('|', mode);
+            Ui_print_color('|', mode, Black);
         }
     }
 }
 
-void Ui_print(char c, char mode){
-    if(mode == 't') Ui_print_terminal(c);
-    else Ui_print_gui(c);
+void Ui_print_color(char c, char mode, enum TerminalColors color){
+    if(mode == 't') {
+        Ui_print_terminal(c, color);
+    }
+    else Ui_print_gui(c, color);
 }
 
-void Ui_print_string(char *str, char mode){
+void Ui_print_string_color(char *str, char mode, enum TerminalColors color){
     int ptr = 0;
-    while(*(str+ptr) != '\0') Ui_print(*(str+ptr++), mode);
+    while(*(str+ptr) != '\0') Ui_print_color(*(str+ptr++), mode, color);
 }
 
-void Ui_print_terminal(char c){
+void Ui_print_terminal(char c, enum TerminalColors color){
+    printf("%s", TerminalColorsNames[color]);
     putchar(c);
+    printf("%s", TerminalColorsNames[Clear]);
 }
 
-void Ui_print_gui(char c){
+void Ui_print_gui(char c, enum TerminalColors color){
     // TODO
 }
