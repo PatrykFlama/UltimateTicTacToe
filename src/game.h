@@ -13,6 +13,7 @@ typedef struct Game{
     Ui *ui;
     char active_player;     // player, whos turn is now
     char game_won;          // '.' -> no, 'x' / 'o'
+    Move last_move;
 } Game;
 
 //? ------ GAMEPLAY ------

@@ -1,4 +1,3 @@
-#include "template.h"
 #include "big_board.h"
 
 // typedef struct BigBoard{
@@ -26,8 +25,10 @@ void BigBoard_delete(BigBoard *board){
     free(board->tab);
 }
 
-bool BigBoard_move_make(BigBoard *board, int which_board, int which_cell, char player){     // ture - move succeeded, false - desired cell is occupied
-    if(which_board >= board->board_size*board->board_size) return false;
+bool BigBoard_move_make(BigBoard *board, int which_board, int which_cell, char player, Move last_move){     // ture - move succeeded, false - desired cell is occupied
+    if(which_board >= board->board_size*board->board_size) return false;    // cant step outside of board
+    if(BigBoard_choose_SmallBoard(board, 0, which_board)->game_won != '.') return false;    // cant step into already won subgame
+    if(BigBoard_choose_SmallBoard(board, 0, last_move.cell)->game_won == '.' && which_board != last_move.cell) return false;      // this move should be in same board, as cell of the last move (if game still can be played there)
     return SmallBoard_move_make(BigBoard_choose_SmallBoard(board, 0, which_board), which_cell, player);
 }
 

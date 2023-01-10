@@ -19,6 +19,8 @@ void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, int game
     game->active_player = 'o';  // 'o' makes first move
     game->ui = _ui;
     game->game_won = '.';
+    Move move = {-1, -1};
+    game->last_move = move;
 
     Ui_update(game->ui, game->board);
 }
@@ -34,15 +36,29 @@ Player* Game_give_active_player(Game *game){
 
 bool Game_player_move(Game *game){
     if(game->ui->ui_mode == 't'){
-        char *str = "Give coordinates of big board, then small board (first row, then column): ";
-        Ui_print_string(str, 't');
+        // char *str = "Give coordinates of big board, then small board (first row, then column): "; // TODO: put this into tutorial
+        Ui_print_string("Active player ", game->ui->ui_mode);
+        Ui_print(game->active_player, game->ui->ui_mode);
+        Ui_print_string(": ", game->ui->ui_mode);
     }
     Move move = Player_get_move(Game_give_active_player(game), game->board->board_size);
 
     // TODO: force player to play in appropriate cell
 
-    bool success = BigBoard_move_make(game->board, move.board, move.cell, game->active_player);
-    if(success) Game_player_made_move(game);
+    bool success = BigBoard_move_make(game->board, move.board, move.cell, game->active_player, game->last_move);
+    if(success){
+        char player_won = SmallBoard_won(BigBoard_choose_SmallBoard(game->board, 0, move.board));
+        if(player_won != '.') {
+            Ui_print_string("Small game won by ", game->ui->ui_mode);
+            Ui_print(player_won, game->ui->ui_mode);
+            Ui_print_string("!\n", game->ui->ui_mode);
+        }
+        Game_player_made_move(game);
+        game->last_move = move;
+    } else{
+        Ui_update(game->ui, game->board);
+        Ui_print_string("Wrong move!\n", game->ui->ui_mode);
+    }
     return success;
 }
 
@@ -51,7 +67,7 @@ void Game_player_made_move(Game *game){     // check if game won, switch active 
     if(game->game_won == '.') Player_swap(&(game->active_player));
     Ui_update(game->ui, game->board);
 
-    if(game->game_won != '.') Game_end(game);
+    if(game->game_won != '.') Game_over(game);
 }
 
 bool Game_tick(Game *game){
