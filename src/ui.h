@@ -11,6 +11,7 @@ typedef struct Ui{
 void Ui_init(Ui *ui, char _ui_mode);
 void Ui_update(Ui *ui, BigBoard *board);
 
+void Ui_clear(char mode);
 void Ui_draw(BigBoard *board, char mode);
 void Ui_draw_BigBoard(BigBoard *board, char mode);
 void Ui_draw_SmallBoard(SmallBoard *board, char mode, int line);

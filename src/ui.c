@@ -13,7 +13,16 @@ void Ui_draw(BigBoard *board, char mode){
     Ui_draw_BigBoard(board, mode);
 }
 
+void Ui_clear(char mode){
+    if(mode == 't'){            // terminal clear
+        printf("\e[1;1H\e[2J");
+    } else{                     // gui clear
+
+    }
+}
+
 void Ui_update(Ui *ui, BigBoard *board){
+    Ui_clear(ui->ui_mode);
     Ui_draw(board, ui->ui_mode);
 }
 
