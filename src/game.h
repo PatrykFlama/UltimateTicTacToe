@@ -24,6 +24,7 @@ Player* Game_give_active_player(Game *game);
 bool Game_player_move(Game *game);   // execute player move, true/false == success/or not
 void Game_player_made_move(Game *game);     // check if game won, switch active players
 bool Game_tick(Game *game);
+void Game_over(Game *game);
 
 // TODO: functions to give info for bot
 
