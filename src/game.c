@@ -44,8 +44,6 @@ bool Game_player_move(Game *game){
     }
     Move move = Player_get_move(Game_give_active_player(game), game->board->board_size);
 
-    // TODO: force player to play in appropriate cell
-
     bool success = BigBoard_move_make(game->board, move.board, move.cell, game->active_player, game->last_move);
     if(success){
         char player_won = SmallBoard_won(BigBoard_choose_SmallBoard(game->board, 0, move.board));
