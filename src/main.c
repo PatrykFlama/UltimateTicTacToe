@@ -16,18 +16,16 @@ int main(int argc, char** argv){
     // TODO: menu
 
     Player player1, player2;
-    Player_init(&player1, ui_mode);
-    Player_init(&player2, ui_mode);
-    
     Ui ui;
-
     SmallBoard boards[board_size*board_size];
     BigBoard board;
-    board.tab = boards;
-    BigBoard_init(&board, board_size);    
-    
     Game game;
-    Game_init(&game, &player1, &player2, &ui, ui_mode, &board, 3);
+    
+    Player_init(&player1, ui_mode);
+    Player_init(&player2, ui_mode);
+    Ui_init(game.ui, ui_mode, &(game.last_move.cell));
+    BigBoard_init(&board, boards, board_size);
+    Game_init(&game, &player1, &player2, &ui, &board, 3);
 
     while(!Game_tick(&game)){}
 }

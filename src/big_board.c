@@ -7,9 +7,10 @@
 //     int active_board;   // from 0 to board_size*board_size
 // } BigBoard;
 
-void BigBoard_init(BigBoard *board, int board_size){
+void BigBoard_init(BigBoard *board, SmallBoard *_tab, int board_size){
     board->board_size = board_size;
-    board->tab = malloc(board_size*board_size*sizeof(SmallBoard));
+    board->tab = _tab;
+    // board->tab = malloc(board_size*board_size*sizeof(SmallBoard));
 
     FOR(board_size*board_size) SmallBoard_init(BigBoard_choose_SmallBoard(board, 0, i), board->board_size, i);
 
