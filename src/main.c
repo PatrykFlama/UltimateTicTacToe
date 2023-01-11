@@ -11,6 +11,7 @@ int main(int argc, char** argv){
     int board_size = 3;
     char ui_mode = 't';
     if(argc > 1) ui_mode = argv[1][0];
+    if(ui_mode != 't' && ui_mode != 'g') ui_mode = 't';
     if(argc > 2) board_size = atoi(argv[2]);
     // TODO: menu
 
