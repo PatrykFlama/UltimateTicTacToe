@@ -12,7 +12,7 @@
 // } Game;
 
 
-void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, int game_size, BigBoard *_board){   // start and initialize game
+void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, char ui_mode, BigBoard *_board, int game_size){   // start and initialize game
     // BigBoard_init(&(game->board), game_size);
     game->board = _board;
     game->playero = _playero;   // player 'o'
@@ -22,12 +22,12 @@ void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, int game
     game->game_won = '.';
     Move move = {-1, -1};
     game->last_move = move;
-    Ui_init(game->ui, 't', &(game->last_move.cell));
+    Ui_init(game->ui, ui_mode, &(game->last_move.cell));
 
     Ui_update(game->ui, game->board);
 }
 
-void Game_end(Game *game){    // end game
+void Game_end(Game *game){    // delete game
     BigBoard_delete(game->board);
 }
 

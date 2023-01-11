@@ -18,7 +18,7 @@ typedef struct Game{
 
 //? ------ GAMEPLAY ------
 // void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, int game_size);   // start and initialize game
-void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, int game_size, BigBoard *_board);   // start and initialize game
+void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, char ui_mode, BigBoard *_board, int game_size);   // start and initialize game   // start and initialize game
 void Game_end(Game *game);    // end game
 Player* Game_give_active_player(Game *game);
 bool Game_player_move(Game *game);   // execute player move, true/false == success/or not
