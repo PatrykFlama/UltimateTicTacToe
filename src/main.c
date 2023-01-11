@@ -3,7 +3,8 @@
 #include "big_board.h"
 #include "move.h"
 #include "player.h"
-#include "ui.h"
+// #include "ui.h"
+#include "menu.h"
 #include "game.h"
 
 int main(int argc, char** argv){
@@ -13,21 +14,24 @@ int main(int argc, char** argv){
     if(argc > 1) ui_mode = argv[1][0];
     if(ui_mode != 't' && ui_mode != 'g') ui_mode = 't';
     if(argc > 2) board_size = atoi(argv[2]);
-    // TODO: menu
 
     Player player1, player2;
-    Player_init(&player1, ui_mode);
-    Player_init(&player2, ui_mode);
-    
     Ui ui;
-
     SmallBoard boards[board_size*board_size];
     BigBoard board;
-    board.tab = boards;
-    BigBoard_init(&board, board_size);    
-    
     Game game;
-    Game_init(&game, &player1, &player2, &ui, ui_mode, &board, 3);
+    // Menu menu;
+    
+    Ui_init(game.ui, ui_mode, &(game.last_move.cell));
+    // Menu_init(&menu, &ui);
+    // while(!Menu_loop(&menu)){}
+    // TODO: menu
+
+    Player_init(&player1, ui_mode);
+    Player_init(&player2, ui_mode);
+    BigBoard_init(&board, boards, board_size);
+    Game_init(&game, &player1, &player2, &ui, &board, board_size);
+    
 
     while(!Game_tick(&game)){}
 }

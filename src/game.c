@@ -12,7 +12,7 @@
 // } Game;
 
 
-void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, char ui_mode, BigBoard *_board, int game_size){   // start and initialize game
+void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, BigBoard *_board, int game_size){   // start and initialize game
     // BigBoard_init(&(game->board), game_size);
     game->board = _board;
     game->playero = _playero;   // player 'o'
@@ -22,7 +22,6 @@ void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, char ui_
     game->game_won = '.';
     Move move = {-1, -1};
     game->last_move = move;
-    Ui_init(game->ui, ui_mode, &(game->last_move.cell));
 
     Ui_update(game->ui, game->board);
 }
@@ -44,8 +43,6 @@ bool Game_player_move(Game *game){
         Ui_print_string(": ", game->ui->ui_mode);
     }
     Move move = Player_get_move(Game_give_active_player(game), game->board->board_size);
-
-    // TODO: force player to play in appropriate cell
 
     bool success = BigBoard_move_make(game->board, move.board, move.cell, game->active_player, game->last_move);
     if(success){
