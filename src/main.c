@@ -3,7 +3,7 @@
 #include "big_board.h"
 #include "move.h"
 #include "player.h"
-#include "ui.h"
+// #include "ui.h"
 #include "menu.h"
 #include "game.h"
 
@@ -20,7 +20,7 @@ int main(int argc, char** argv){
     SmallBoard boards[board_size*board_size];
     BigBoard board;
     Game game;
-    Menu menu;
+    // Menu menu;
     
     Ui_init(game.ui, ui_mode, &(game.last_move.cell));
     // Menu_init(&menu, &ui);
@@ -30,7 +30,7 @@ int main(int argc, char** argv){
     Player_init(&player1, ui_mode);
     Player_init(&player2, ui_mode);
     BigBoard_init(&board, boards, board_size);
-    Game_init(&game, &player1, &player2, &ui, &board, 3);
+    Game_init(&game, &player1, &player2, &ui, &board, board_size);
     
 
     while(!Game_tick(&game)){}
