@@ -34,7 +34,7 @@ typedef struct Ui{
     int *active_board;
 } Ui;
 
-void Ui_init(Ui *ui, char _ui_mode, int *_active_board);
+void Ui_init(Ui *ui, char _ui_mode);
 void Ui_update(Ui *ui, BigBoard *board);
 
 void Ui_clear(char mode);

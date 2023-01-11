@@ -7,9 +7,8 @@
 // } Ui;
 
 
-void Ui_init(Ui *ui, char _ui_mode, int *_active_board){
+void Ui_init(Ui *ui, char _ui_mode){
     ui->ui_mode = _ui_mode;
-    ui->active_board = _active_board;
     ui->color_x = Red;
     ui->color_o = Green;
     ui->color_empty = Blue;
