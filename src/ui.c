@@ -13,10 +13,12 @@ void Ui_init(Ui *ui, char _ui_mode){
     ui->color_o = Green;
     ui->color_empty = Blue;
     ui->color_empty_active = Yellow;
+    ui->debug = false;
 }
 
-void Ui_clear(char mode){
-    if(mode == 't'){            // terminal clear
+void Ui_clear(Ui *ui){
+    if(ui->ui_mode == 't'){            // terminal clear
+        if(ui->debug) return;
         printf("\e[1;1H\e[2J");
     } else{                     // gui clear
 
@@ -24,7 +26,7 @@ void Ui_clear(char mode){
 }
 
 void Ui_update(Ui *ui, BigBoard *board){
-    Ui_clear(ui->ui_mode);
+    Ui_clear(ui);
     Ui_draw(ui, board);
 }
 
@@ -68,17 +70,12 @@ void Ui_draw_SmallBoard(Ui *ui, SmallBoard *board, int row){
     // printf("Active board: %d\n", *(ui->active_board));
     FOR(col, board->board_size){
         char player = *(board->tab + (col + row*board->board_size)*sizeof(char));
-        switch (player){
-            case 'x':
-                Ui_print_color(player, ui->ui_mode, ui->color_x);
-                break;
-            case 'o':
-                Ui_print_color(player, ui->ui_mode, ui->color_o);
-                break;
-            default:
-                Ui_print_color(player, ui->ui_mode, (board->board_number == *(ui->active_board) ? ui->color_empty_active : ui->color_empty));
-                break;
-        }
+        if(player == 'x') Ui_print_color(player, ui->ui_mode, ui->color_x);
+        else if(player == 'o') Ui_print_color(player, ui->ui_mode, ui->color_o);
+        else if(board->game_won == 'x')  Ui_print_color(player, ui->ui_mode, ui->color_x);
+        else if(board->game_won == 'o')  Ui_print_color(player, ui->ui_mode, ui->color_o);
+        else if(board->board_number == *(ui->active_board))  Ui_print_color(player, ui->ui_mode, ui->color_empty_active);
+        else Ui_print_color(player, ui->ui_mode, ui->color_empty);
         
         if(col != board->board_size-1){
             Ui_print_color('|', ui->ui_mode, Black);

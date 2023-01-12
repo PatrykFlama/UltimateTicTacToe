@@ -32,12 +32,13 @@ typedef struct Ui{
     char ui_mode;       // t - terminal, g - gui
     enum TerminalColors color_x, color_o, color_empty, color_empty_active;
     int *active_board;
+    bool debug;
 } Ui;
 
 void Ui_init(Ui *ui, char _ui_mode);
 void Ui_update(Ui *ui, BigBoard *board);
 
-void Ui_clear(char mode);
+void Ui_clear(Ui *ui);
 void Ui_draw(Ui *ui, BigBoard *board);
 void Ui_draw_BigBoard(Ui *ui, BigBoard *board);
 void Ui_draw_SmallBoard(Ui *ui, SmallBoard *board, int row);
