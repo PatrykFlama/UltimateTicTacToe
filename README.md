@@ -6,7 +6,7 @@ The player who wins in the big board wins entire game.
 
 ## How to launch
 Tested on Windows 11, version 10.0.22621\
-To run game simply execute _run.bat_ file located in main folder. The game will compile and run.
+To run game simply execute _run.bat [ui mode] [board size]_ file located in main folder. The game will compile and run.
 
 ## Concept
 Rough idea is shown with graph on the [whiteboard](#whiteboard).
