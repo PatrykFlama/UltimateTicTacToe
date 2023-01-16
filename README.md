@@ -13,7 +13,7 @@ Rough idea is shown with graph on the [whiteboard](#whiteboard).
 
 ## Libraries
 Essential libraries for this project are: stdbool.h, stdio.h, stdlib.h, time.h\
-For GUI GTK library has been used.
+For GUI NCurses library has been used.
 
 ## Whiteboard
 [Bitpaper](https://bitpaper.io/go/UltimateTicTacToe/hS4iuuHld)
