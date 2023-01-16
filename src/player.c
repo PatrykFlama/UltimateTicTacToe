@@ -1,13 +1,12 @@
-#include "template.h"
 #include "player.h"
 
 // typedef struct Player{
 //     char input_type;      // t - terminal1, g - gui1, b - bot1
 // } Player;
 
-void Player_init(Player *player, char _input_type, int _board_size){
+void Player_init(Player *player, BigBoard *_board, char _input_type){
     player->input_type = _input_type;
-    player->board_size = _board_size;
+    player->board = _board;
     srand(time(NULL));
 }
 
@@ -23,8 +22,30 @@ Move Player_get_move(Player *player, int game_size){
         // TODO gui input
     } else{
         // TODO bot input
+        int board_size = player->board->board_size;
+        int active_boards[board_size*board_size];
+        int ptr = 0;
 
-        move.board = rand() % player->board_size;
+        if(BigBoard_choose_SmallBoard(player->board, 0, *player->board->active_board)->game_won != '.'){
+            FOR(boards, board_size*board_size){
+                if(BigBoard_choose_SmallBoard(player->board, 0, boards)->game_won == '.'){
+                    active_boards[ptr++] = boards;
+                }
+            }
+
+            move.board = active_boards[rand() % ptr];
+        } else{
+            move.board = *player->board->active_board;
+        }
+
+        ptr = 0;
+        FOR(cells, board_size*board_size){
+            if(BigBoard_choose_SmallBoard(player->board, 0, move.board)->tab[cells] == '.'){
+                active_boards[ptr++] = cells;
+            }
+        }
+
+        move.cell = active_boards[rand() % ptr];
     }
 
     return move;

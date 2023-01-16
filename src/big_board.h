@@ -9,7 +9,7 @@ typedef struct BigBoard{
     int board_size;
     SmallBoard *tab;
     char game_won;
-    int active_board;   // from 0 to board_size*board_size
+    int *active_board;   // from 0 to board_size*board_size
 } BigBoard;
 
 void BigBoard_init(BigBoard *board, SmallBoard *_tab, int board_size);

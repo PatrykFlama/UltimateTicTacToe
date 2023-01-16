@@ -1,4 +1,3 @@
-#include "template.h"
 #include "game.h"
 
 
@@ -36,7 +35,7 @@ Player* Game_give_active_player(Game *game){
 }
 
 bool Game_player_move(Game *game){
-    if(game->ui->ui_mode == 't'){
+    if(game->ui->ui_mode == 't' && !(game->active_player == 'x' && game->playerx->input_type == 'b')){
         // char *str = "Give coordinates of big board, then small board (first row, then column): "; // TODO: put this into tutorial
         Ui_print_string("Active player ", game->ui->ui_mode);
         Ui_print(game->active_player, game->ui->ui_mode);

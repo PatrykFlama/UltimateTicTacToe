@@ -29,8 +29,8 @@ int main(int argc, char** argv){
     Game game;
     BigBoard board;
     
-    Player_init(&player1, menu.player1, board_size);
-    Player_init(&player2, menu.player2, board_size);
+    Player_init(&player1, &board, menu.player1);
+    Player_init(&player2, &board, menu.player2);
     Ui_init(&ui, ui_mode);
     ui.debug = debug;
 
@@ -38,6 +38,7 @@ int main(int argc, char** argv){
     BigBoard_init(&board, boards, menu.board_size);    
     
     ui.active_board = &game.last_move.cell;
+    board.active_board = &game.last_move.cell;
     Game_init(&game, &player1, &player2, &ui, &board, menu.board_size);
 
     while(!Game_tick(&game)){}
