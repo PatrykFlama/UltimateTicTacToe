@@ -56,6 +56,7 @@ void Menu_print(Menu *menu){
         printf("Select gamemode:\n");
         printf("1 - player vs player\n");
         printf("2 - player vs bot\n");
+        printf("3 - bot vs bot\n");
     } else if(menu->menu_option == 'u'){
         printf("Select display mode:\n");
         printf("t - display in terminal\n");
@@ -78,8 +79,7 @@ void Menu_action_change_gamemode(Menu *menu){
     } else if(gamemode == '2'){     // player vs bot
         menu->player1 = 'p';
         menu->player2 = 'b';
-    } else if(gamemode == '3'){
-        printf("Secred option activated!\n");
+    } else if(gamemode == '3'){     // bot vs bot
         menu->player1 = 'b';
         menu->player2 = 'b';
     }
