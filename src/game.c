@@ -75,8 +75,9 @@ bool Game_tick(Game *game){
 }
 
 void Game_over(Game *game){
-    Ui_print_string("Game over! ", game->ui->ui_mode);
+    Ui_print_string("Game over!\n", game->ui->ui_mode);
+    Ui_print_string("Game won by ", game->ui->ui_mode);
     Ui_print_color(game->active_player, game->ui->ui_mode, (game->active_player == 'x' ? game->ui->color_x : game->ui->color_o));
-    Ui_print_string("Game over! ", game->ui->ui_mode);
+    Ui_print('\n', game->ui->ui_mode);
     Game_end(game);
 }

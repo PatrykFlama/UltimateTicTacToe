@@ -78,6 +78,10 @@ void Menu_action_change_gamemode(Menu *menu){
     } else if(gamemode == '2'){     // player vs bot
         menu->player1 = 'p';
         menu->player2 = 'b';
+    } else if(gamemode == '3'){
+        printf("Secred option activated!\n");
+        menu->player1 = 'b';
+        menu->player2 = 'b';
     }
 }
 

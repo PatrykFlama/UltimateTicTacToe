@@ -69,9 +69,10 @@ void Ui_draw_BigBoard(Ui *ui, BigBoard *board){
 void Ui_draw_SmallBoard(Ui *ui, SmallBoard *board, int row){
     // printf("Active board: %d\n", *(ui->active_board));
     FOR(col, board->board_size){
-        char player = *(board->tab + (col + row*board->board_size)*sizeof(char));
-        if(player == 'x') Ui_print_color(player, ui->ui_mode, ui->color_x);
-        else if(player == 'o') Ui_print_color(player, ui->ui_mode, ui->color_o);
+        char player = board->tab[col + row*board->board_size];
+
+        if(player == 'o') Ui_print_color(player, ui->ui_mode, ui->color_o);
+        else if(player == 'x') Ui_print_color(player, ui->ui_mode, ui->color_x);
         else if(board->game_won == 'x')  Ui_print_color(player, ui->ui_mode, ui->color_x);
         else if(board->game_won == 'o')  Ui_print_color(player, ui->ui_mode, ui->color_o);
         else if(board->board_number == *(ui->active_board))  Ui_print_color(player, ui->ui_mode, ui->color_empty_active);
