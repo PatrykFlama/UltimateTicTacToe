@@ -5,7 +5,7 @@
 #include "move.h"
 
 typedef struct Player{
-    char input_type;      // t - terminal1, g - gui1, b - bot1
+    char input_type;      // t - terminal, g - gui, b - bot
 } Player;
 
 void Player_init(Player *player, char _input_type);
