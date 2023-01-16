@@ -25,18 +25,18 @@ int main(int argc, char** argv){
     ui_mode = menu.ui_mode;
 
     Player player1, player2;
-    Player_init(&player1, menu.player1);
-    Player_init(&player2, menu.player2);
-    
     Ui ui;
+    Game game;
+    BigBoard board;
+    
+    Player_init(&player1, menu.player1, board_size);
+    Player_init(&player2, menu.player2, board_size);
     Ui_init(&ui, ui_mode);
     ui.debug = debug;
 
     SmallBoard boards[menu.board_size*menu.board_size];
-    BigBoard board;
     BigBoard_init(&board, boards, menu.board_size);    
     
-    Game game;
     ui.active_board = &game.last_move.cell;
     Game_init(&game, &player1, &player2, &ui, &board, menu.board_size);
 
