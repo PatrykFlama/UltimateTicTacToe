@@ -7,14 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-#ifndef _WIN32
-#include <ncurses.h>
-const char OS = 'L'; 
-#endif
-#ifdef _WIN32
-const char OS = 'W';
-#endif
 // #include <string.h>
 // #include <math.h>
 // #include <ctype.h>
