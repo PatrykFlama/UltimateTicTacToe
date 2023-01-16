@@ -87,6 +87,7 @@ void Menu_action_change_gamemode(Menu *menu){
 
 void Menu_action_change_ui(Menu *menu){
     char ui = Menu_get_option('c');
+    if(OS == 'W') ui = 't';
     menu->ui_mode = ui;
 }
 
