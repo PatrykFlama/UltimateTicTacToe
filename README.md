@@ -5,7 +5,7 @@ If small board game has been won, then the player who won it claims square with 
 The player who wins in the big board wins entire game.
 
 ## How to launch
-Tested on Windows 11, version 10.0.22621 (without GUI - Ncurses)\
+Tested on Windows 11, version 10.0.22621 (without GUI - NCurses)\
 Tested on Ubuntu 22.04.1 LTS\
 To run game simply execute _run.bat_ file located in main folder. The game will compile and run.
 
@@ -14,7 +14,7 @@ Rough idea is shown with graph on the [whiteboard](#whiteboard).
 
 ## Libraries
 Essential libraries for this project are: stdbool.h, stdio.h, stdlib.h, time.h\
-For GUI Ncurses library has been used.
+For GUI NCurses library has been used.
 
 ## Whiteboard
 [Bitpaper](https://bitpaper.io/go/UltimateTicTacToe/hS4iuuHld)
