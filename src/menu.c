@@ -50,7 +50,7 @@ void Menu_print(Menu *menu){
         printf("Select menu option:\n");
         printf("s - start game!\n");
         printf("g - change gamemode\n");
-        printf("u - change display mode\n");
+//         printf("u - change display mode\n");
         printf("b - change board size\n");
     } else if(menu->menu_option == 'g'){
         printf("Select gamemode:\n");
@@ -60,7 +60,7 @@ void Menu_print(Menu *menu){
     } else if(menu->menu_option == 'u'){
         printf("Select display mode:\n");
         printf("t - display in terminal\n");
-        printf("g - display in gui (not working)\n");       // TODO gui is wip
+//         printf("g - display in gui (not working)\n");       // TODO gui is wip
     } else if(menu->menu_option == 'b'){
         printf("Change board size:\n");
         printf("input new board size:\n");
