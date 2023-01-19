@@ -5,7 +5,7 @@ If small board game has been won, then the player who won it claims square with 
 The player who wins in the big board wins entire game.
 
 ## How to launch
-Tested on Windows 11, version 10.0.22621 (without GUI - NCurses)\
+Tested on Windows 11, version 10.0.22621\
 Tested on Ubuntu 22.04.1 LTS\
 To run game simply execute _run.bat_ file located in main folder. The game will compile and run.
 
