@@ -73,8 +73,8 @@ char BigBoard_check_if_game_won(BigBoard *board){        // and return who won
     next_diagonal:
     player = BigBoard_choose_SmallBoard(board, 0, board->board_size - 1)->game_won;
     if(player == '.') goto check_for_draw;
-    FOR(i, 0, board->board_size-1){
-        if(BigBoard_choose_SmallBoard(board, i, i)->game_won != player){
+    FOR(i, 1, board->board_size-1){
+        if(BigBoard_choose_SmallBoard(board, board->board_size - 1 - i, i)->game_won != player){
             goto check_for_draw;
         }
     }
