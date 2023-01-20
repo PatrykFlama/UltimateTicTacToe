@@ -105,3 +105,21 @@ void Ui_print_terminal(char c, enum TerminalColors color){
 void Ui_print_gui(char c, enum TerminalColors color){
     // TODO
 }
+
+char Ui_get_char(char mode){
+    if(mode == 't'){
+        char c; scanf(" %c", &c);
+        return c;
+    } else{     // gui
+        
+    }
+}
+
+int Ui_get_int(char mode){
+    if(mode == 't'){
+        int n; scanf(" %d", &n);
+        return n;
+    } else{     // gui
+        
+    }
+}

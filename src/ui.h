@@ -49,5 +49,7 @@ void Ui_print_string_color(char *str, char mode, enum TerminalColors color);
 #define Ui_print_string(str, mode) Ui_print_string_color(str, mode, White)
 void Ui_print_terminal(char c, enum TerminalColors color);
 void Ui_print_gui(char c, enum TerminalColors color);
+char Ui_get_char(char mode);
+int Ui_get_int(char mode);
 
 #endif

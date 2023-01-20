@@ -20,7 +20,7 @@ void Menu_init(Menu *menu, Ui* _ui, bool _debug);     // set default values
 bool Menu_loop(Menu *menu);
 void Menu_end(Menu *menu, char ui_mode);
 
-char Menu_get_option(char type);
+char Menu_get_option(Menu *menu, char type);
 void Menu_print(Menu *menu);
 void Menu_action_menu(Menu *menu);
 void Menu_action_change_gamemode(Menu *menu);

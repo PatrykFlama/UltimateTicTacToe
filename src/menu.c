@@ -14,7 +14,7 @@ bool Menu_loop(Menu *menu){
     Menu_print(menu);
 
     if(menu->menu_option == 'm'){
-        Menu_action_menu(menu);
+        menu->menu_option = Menu_get_option(menu, 'c');
     } else if(menu->menu_option == 'g'){
         Menu_action_change_gamemode(menu);
         menu->menu_option = 'm';
@@ -31,15 +31,11 @@ bool Menu_loop(Menu *menu){
     return false;
 }
 
-char Menu_get_option(char type){
+char Menu_get_option(Menu *menu, char type){
     if(type == 'c'){        // get char
-        char option;
-        scanf(" %c", &option);
-        return option;
+        return Ui_get_char(menu->ui->ui_mode);
     } else if(type == 'i'){ // get int
-        int option;
-        scanf(" %d", &option);
-        return option;
+        return Ui_get_int(menu->ui->ui_mode);
     }
 }
 
@@ -69,12 +65,8 @@ void Menu_print(Menu *menu){
     }
 }
 
-void Menu_action_menu(Menu *menu){
-    menu->menu_option = Menu_get_option('c');
-}
-
 void Menu_action_change_gamemode(Menu *menu){
-    char gamemode = Menu_get_option('c');
+    char gamemode = Menu_get_option(menu, 'c');
     if(gamemode == '1'){        // player vs player
         menu->player1 = 'p';
         menu->player2 = 'p';
@@ -88,12 +80,12 @@ void Menu_action_change_gamemode(Menu *menu){
 }
 
 void Menu_action_change_board_size(Menu *menu){
-    int size = Menu_get_option('i');
+    int size = Menu_get_option(menu, 'i');
     menu->board_size = size;
 }
 
 void Menu_action_help_page(Menu *menu){
-    Menu_get_option('c');
+    Menu_get_option(menu, 'c');
 }
 
 void Menu_end(Menu *menu, char ui_mode){
