@@ -11,10 +11,25 @@ enum TerminalColors{
     Green,
     Yellow,
     Blue,
-    Purple,
-    Cyan,
     White,
+
+    Highlight1Clear,
+    Highlight1Black,
+    Highlight1Red,
+    Highlight1Green,
+    Highlight1Yellow,
+    Highlight1Blue,
+    Highlight1White,
+
+    Highlight2Clear,
+    Highlight2Black,
+    Highlight2Red,
+    Highlight2Green,
+    Highlight2Yellow,
+    Highlight2Blue,
+    Highlight2White,
 };
+#define number_of_colors 7
 
 static const char * const TerminalColorsNames[] = {
     [Clear] = "\033[0m",
@@ -23,8 +38,6 @@ static const char * const TerminalColorsNames[] = {
     [Green] = "\033[0;32m",
     [Yellow] = "\033[0;33m",
     [Blue] = "\033[0;34m",
-    [Purple] = "\033[0;35m",
-    [Cyan] = "\033[0;36m",
     [White] = "\033[0;37m",
 };
 
@@ -45,7 +58,8 @@ void Ui_draw(Ui *ui, BigBoard *board);
 void Ui_draw_BigBoard(Ui *ui, BigBoard *board);
 void Ui_draw_SmallBoard(Ui *ui, SmallBoard *board, int row);
 
-void Ui_print_color(char c, char mode, enum TerminalColors color);
+void Ui_print_color_offset(char c, char mode, enum TerminalColors color, int color_offset);
+#define Ui_print_color(c, mode, color) Ui_print_color_offset(c, mode, color, 0)
 #define Ui_print(c, mode) Ui_print_color(c, mode, White)
 void Ui_print_string_color(char *str, char mode, enum TerminalColors color);
 #define Ui_print_string(str, mode) Ui_print_string_color(str, mode, White)
@@ -53,5 +67,6 @@ void Ui_print_terminal(char c, enum TerminalColors color);
 void Ui_print_gui(char c, enum TerminalColors color);
 char Ui_get_char(char mode);
 int Ui_get_int(char mode);
+void Ui_print_active_player(Ui *ui, char player);
 
 #endif

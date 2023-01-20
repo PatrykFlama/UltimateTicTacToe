@@ -6,6 +6,8 @@
 typedef struct SmallBoard{
     int board_size;
     int board_number;
+    int highlight;      // highlight of this board
+    int *highlights;    // highlight of cells
     char *tab;  //? convention: '.'-> empty, 'x' -> x, 'o' -> o
     char game_won;      // who won the game '.' -> no one
 } SmallBoard;

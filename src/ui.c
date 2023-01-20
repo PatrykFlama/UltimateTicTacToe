@@ -18,20 +18,38 @@ void Ui_init(Ui *ui, char _ui_mode){
     if(ui->ui_mode == 'g'){
         initscr();
         Ui_init_colors();
+        keypad(stdscr, TRUE);
     }
 }
 
 void Ui_init_colors(){
     start_color();
+    init_color(COLOR_MAGENTA, 200, 200, 0);     // yellow background
+    init_color(COLOR_CYAN, 0, 300, 300);        // cyan background
+
     init_pair(Clear, COLOR_WHITE, A_NORMAL);
     init_pair(Black, COLOR_BLACK, A_NORMAL);
     init_pair(Red, COLOR_RED, A_NORMAL);
     init_pair(Green, COLOR_GREEN, A_NORMAL);
     init_pair(Yellow, COLOR_YELLOW, A_NORMAL);
     init_pair(Blue, COLOR_BLUE, A_NORMAL);
-    init_pair(Purple, COLOR_MAGENTA, A_NORMAL);
-    init_pair(Cyan, COLOR_CYAN, A_NORMAL);
     init_pair(White, COLOR_WHITE, A_NORMAL);
+
+    init_pair(Highlight1Clear, COLOR_WHITE, COLOR_MAGENTA);
+    init_pair(Highlight1Black, COLOR_BLACK, COLOR_MAGENTA);
+    init_pair(Highlight1Red, COLOR_RED, COLOR_MAGENTA);
+    init_pair(Highlight1Green, COLOR_GREEN, COLOR_MAGENTA);
+    init_pair(Highlight1Yellow, COLOR_YELLOW, COLOR_MAGENTA);
+    init_pair(Highlight1Blue, COLOR_BLUE, COLOR_MAGENTA);
+    init_pair(Highlight1White, COLOR_WHITE, COLOR_MAGENTA);
+
+    init_pair(Highlight2Clear, COLOR_WHITE, COLOR_CYAN);
+    init_pair(Highlight2Black, COLOR_BLACK, COLOR_CYAN);
+    init_pair(Highlight2Red, COLOR_RED, COLOR_CYAN);
+    init_pair(Highlight2Green, COLOR_GREEN, COLOR_CYAN);
+    init_pair(Highlight2Yellow, COLOR_YELLOW, COLOR_CYAN);
+    init_pair(Highlight2Blue, COLOR_BLUE, COLOR_CYAN);
+    init_pair(Highlight2White, COLOR_WHITE, COLOR_CYAN);
 }
 
 void Ui_end(){
@@ -92,25 +110,28 @@ void Ui_draw_BigBoard(Ui *ui, BigBoard *board){
 void Ui_draw_SmallBoard(Ui *ui, SmallBoard *board, int row){
     FOR(col, board->board_size){
         char player = board->tab[col + row*board->board_size];
+        int color_offset_cell = max(board->highlights[row*board->board_size+col], board->highlight);
 
-        if(player == 'o') Ui_print_color(player, ui->ui_mode, ui->color_o);
-        else if(player == 'x') Ui_print_color(player, ui->ui_mode, ui->color_x);
-        else if(board->game_won == 'x')  Ui_print_color(player, ui->ui_mode, ui->color_x);
-        else if(board->game_won == 'o')  Ui_print_color(player, ui->ui_mode, ui->color_o);
-        else if(board->board_number == *(ui->active_board))  Ui_print_color(player, ui->ui_mode, ui->color_empty_active);
-        else Ui_print_color(player, ui->ui_mode, ui->color_empty);
+        if(player == 'o') Ui_print_color_offset(player, ui->ui_mode, (ui->color_o), color_offset_cell);
+        else if(player == 'x') Ui_print_color_offset(player, ui->ui_mode, (ui->color_x), color_offset_cell);
+        else if(board->game_won == 'x')  Ui_print_color_offset(player, ui->ui_mode, (ui->color_x), color_offset_cell);
+        else if(board->game_won == 'o')  Ui_print_color_offset(player, ui->ui_mode, (ui->color_o), color_offset_cell);
+        else if(board->board_number == *(ui->active_board))  Ui_print_color_offset(player, ui->ui_mode, (ui->color_empty_active), color_offset_cell);
+        else Ui_print_color_offset(player, ui->ui_mode, (ui->color_empty), color_offset_cell);
         
         if(col != board->board_size-1){
-            Ui_print_color('|', ui->ui_mode, Black);
+            Ui_print_color_offset('|', ui->ui_mode, Black, board->highlight);
         }
     }
 }
 
-void Ui_print_color(char c, char mode, enum TerminalColors color){
+void Ui_print_color_offset(char c, char mode, enum TerminalColors color, int color_offset){
     if(mode == 't') {
         Ui_print_terminal(c, color);
     }
-    else Ui_print_gui(c, color);
+    else Ui_print_gui(c, color+(color_offset*number_of_colors));
+    // else if(c == '\n') Ui_print_gui(c, color);
+    // else Ui_print_gui(color_offset+'0', color);
 }
 
 void Ui_print_string_color(char *str, char mode, enum TerminalColors color){
@@ -147,4 +168,10 @@ int Ui_get_int(char mode){
         int n; scanw(" %d", &n);
         return n;
     }
+}
+
+void Ui_print_active_player(Ui *ui, char player){
+    Ui_print_string("Active player ", ui->ui_mode);
+    Ui_print(player, ui->ui_mode);
+    Ui_print_string(": ", ui->ui_mode);
 }

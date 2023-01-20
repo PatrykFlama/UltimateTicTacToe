@@ -20,7 +20,6 @@ int main(int argc, char** argv){
     #ifdef _WIN32
     ui_mode = 't';
     #endif
-    printf("ncrs: %c\n", ui_mode);
 
     Ui ui;
     Ui_init(&ui, ui_mode);
@@ -36,8 +35,8 @@ int main(int argc, char** argv){
     Game game;
     BigBoard board;
     
-    Player_init(&player1, &board, menu.player1);
-    Player_init(&player2, &board, menu.player2);
+    Player_init(&player1, &board, menu.player1, 'o');
+    Player_init(&player2, &board, menu.player2, 'x');
 
     SmallBoard boards[menu.board_size*menu.board_size];
     BigBoard_init(&board, boards, menu.board_size);    

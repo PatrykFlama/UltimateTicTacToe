@@ -4,24 +4,45 @@
 //     char input_type;      // t - terminal1, g - gui1, b - bot1
 // } Player;
 
-void Player_init(Player *player, BigBoard *_board, char _input_type){
+void Player_init(Player *player, BigBoard *_board, char _input_type, char _char_){
     player->input_type = _input_type;
+    player->char_ = _char_;
     player->board = _board;
     srand(time(NULL));
 }
 
-Move Player_get_move(Player *player, int game_size){
+Move Player_get_move(Player *player, BigBoard *board, Ui *ui){
     Move move;
-    if(player->input_type == 't'){
+    if(player->input_type == 't'){                                  //! ------------terminal------------
         int big_row, big_col, small_row, small_col;
         if(scanf(" %d %d %d %d", &big_row, &big_col, &small_row, &small_col) != 4) goto player_wrong_move;
         --big_row, --big_col, --small_row, --small_col;
-        move.board = big_row*game_size + big_col;
-        move.cell = small_row*game_size + small_col;
-    } else if(player->input_type == 'g'){
-        // TODO gui input
-    } else{
-        // TODO bot input
+        move.board = big_row*board->board_size + big_col;
+        move.cell = small_row*board->board_size + small_col;
+    } else if(player->input_type == 'g'){                           //! ----------------------GUI----------------------
+        if(BigBoard_choose_SmallBoard(board, 0, *board->active_board)->game_won == '.'){
+            move.board = *board->active_board, move.cell = 0;
+        } else{
+            move.board = 0, move.cell = 0;
+            Player_set_highlight_board(&move, board, 1);
+            Ui_update(ui, board);
+            Ui_print_active_player(ui, player->char_);
+
+            while(Player_get_move_board_gui(player, board, &move, ui)){}
+        }
+
+        Player_set_highlight_board(&move, board, 0);
+        Player_set_highlight_cell(&move, BigBoard_choose_SmallBoard(board, 0, move.board), 2);
+        Ui_update(ui, board);
+        Ui_print_active_player(ui, player->char_);
+
+        while(Player_get_move_cell_gui(player, board, BigBoard_choose_SmallBoard(board, 0, move.board), &move, ui)){}
+
+        Player_set_highlight_cell(&move, BigBoard_choose_SmallBoard(board, 0, move.board), 0);
+
+        Ui_update(ui, board);
+        Ui_print_active_player(ui, player->char_);
+    } else{                                                     //! -----------bot-----------
         int board_size = player->board->board_size;
         int active_boards[board_size*board_size];
         int ptr = 0;
@@ -57,6 +78,65 @@ Move Player_get_move(Player *player, int game_size){
     if(player->input_type == 't') while(temp != '\n') temp = getchar();
     
     return move;
+}
+
+void Player_set_highlight_board(Move *move, BigBoard *board, int val){
+    BigBoard_choose_SmallBoard(board, 0, move->board)->highlight = val;
+}
+
+void Player_set_highlight_cell(Move *move, SmallBoard *board, int val){
+    board->highlights[move->cell] = val;
+}
+
+bool Player_get_move_board_gui(Player *player, BigBoard *board, Move *move, Ui *ui){
+    int key = getch();
+    Player_set_highlight_board(move, board, 0);
+
+    if(key == KEY_UP){
+        if(move->board / board->board_size > 0) move->board -= board->board_size;
+    } else if(key == KEY_DOWN){
+        if(move->board / board->board_size < board->board_size-1) move->board += board->board_size;
+    } else if(key == KEY_LEFT){
+        if(move->board % board->board_size > 0) move->board -= 1;
+    } else if(key == KEY_RIGHT){
+        if(move->board % board->board_size < board->board_size-1) move->board += 1;
+    } else if(key == '\n'){
+        Player_set_highlight_board(move, board, 1);
+        return false;
+    }
+
+    Player_set_highlight_board(move, board, 1);
+
+    Ui_update(ui, board);
+    Ui_print_active_player(ui, player->char_);
+
+    return true;
+}   
+
+bool Player_get_move_cell_gui(Player *player, BigBoard *big_board, SmallBoard *board, Move *move, Ui *ui){
+    int key = getch();
+    Player_set_highlight_cell(move, board, 0);
+
+    if(key == KEY_UP){
+        if(move->cell / board->board_size > 0) move->cell -= board->board_size;
+    } else if(key == KEY_DOWN){
+        if(move->cell / board->board_size < board->board_size-1) move->cell += board->board_size;
+    } else if(key == KEY_LEFT){
+        if(move->cell % board->board_size > 0) move->cell -= 1;
+    } else if(key == KEY_RIGHT){
+        if(move->cell % board->board_size < board->board_size-1) move->cell += 1;
+    } else if(key == '\n'){
+        Player_set_highlight_cell(move, board, 2);
+        return false;
+    }
+
+    Player_set_highlight_cell(move, board, 2);
+
+    Ui_update(ui, big_board);
+    Ui_print_active_player(ui, player->char_);
+    // Ui_print_active_player(ui, move->cell + '0');
+
+    return true;
 }
 
 void Player_swap(char *player){

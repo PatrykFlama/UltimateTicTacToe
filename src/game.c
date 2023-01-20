@@ -40,11 +40,9 @@ Player* Game_give_active_player(Game *game){
 
 bool Game_player_move(Game *game){
     if(!(game->playerx->input_type == 'b' && game->playero->input_type == 'b')){
-        if(game->playero->input_type != 'b') Ui_print_string("Active player ", game->ui->ui_mode);
-        Ui_print(game->active_player, game->ui->ui_mode);
-        Ui_print_string(": ", game->ui->ui_mode);
+        Ui_print_active_player(game->ui, game->active_player);
     }
-    Move move = Player_get_move(Game_give_active_player(game), game->board->board_size);
+    Move move = Player_get_move(Game_give_active_player(game), game->board, game->ui);
 
     bool success = BigBoard_move_make(game->board, move.board, move.cell, game->active_player, game->last_move);
     if(success){

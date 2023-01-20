@@ -10,6 +10,8 @@
 void SmallBoard_init(SmallBoard *board, int _board_size, int _board_number){
     board->board_number = _board_number;
     board->board_size = _board_size;
+    board->highlight = 0;
+    board->highlights = (int*)calloc(board->board_size*board->board_size, sizeof(int));
     board->tab = (char*)malloc(_board_size*_board_size*sizeof(char));
     FOR(_board_size*_board_size) *(board->tab + i) = '.';
 
