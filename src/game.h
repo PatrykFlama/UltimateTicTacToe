@@ -12,7 +12,7 @@ typedef struct Game{
     BigBoard *board;
     Ui *ui;
     char active_player;     // player, whos turn is now
-    char game_won;          // '.' -> no, 'x' / 'o'
+    char game_won;          // '.' -> no, 'x' / 'o', 'd' - draw
     Move last_move;
 } Game;
 

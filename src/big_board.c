@@ -72,13 +72,20 @@ char BigBoard_check_if_game_won(BigBoard *board){        // and return who won
 
     next_step:
     player = BigBoard_choose_SmallBoard(board, 0, board->board_size - 1)->game_won;
-    if(player == '.') return '.';
+    if(player == '.') goto check_for_draw;
     FOR(i, 1, board->board_size){
         if(BigBoard_choose_SmallBoard(board, i, -i)->game_won != player){
-            return '.';
+            goto check_for_draw;
         }
     }
     return player;
+
+    check_for_draw:
+    FOR(i, 0, board->board_size*board->board_size){
+        if(BigBoard_choose_SmallBoard(board, 0, i)->game_won == '.') return '.'; 
+    }
+
+    return 'd';
 }
 
 char BigBoard_won(BigBoard *board){                     // check who won, save it and return it

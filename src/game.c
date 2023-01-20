@@ -22,7 +22,7 @@ void Game_init(Game *game, Player *_playero, Player *_playerx, Ui *_ui, BigBoard
     Move move = {-1, -1};
     game->last_move = move;
 
-    Ui_update(game->ui, game->board);
+    if(!(game->playerx->input_type == 'b' && game->playero->input_type == 'b')) Ui_update(game->ui, game->board);
 }
 
 void Game_end(Game *game){    // delete game
@@ -39,7 +39,7 @@ Player* Game_give_active_player(Game *game){
 }
 
 bool Game_player_move(Game *game){
-    if(!(game->active_player == 'x' && game->playerx->input_type == 'b') && !(game->active_player == 'o' && game->playero->input_type == 'b')){
+    if(!(game->playerx->input_type == 'b' && game->playero->input_type == 'b')){
         if(game->playero->input_type != 'b') Ui_print_string("Active player ", game->ui->ui_mode);
         Ui_print(game->active_player, game->ui->ui_mode);
         Ui_print_string(": ", game->ui->ui_mode);
@@ -50,13 +50,15 @@ bool Game_player_move(Game *game){
     if(success){
         char player_won = SmallBoard_won(BigBoard_choose_SmallBoard(game->board, 0, move.board));
         if(player_won != '.') {
-            Ui_print_string("Small game won by ", game->ui->ui_mode);
-            Ui_print_color(player_won, game->ui->ui_mode, (player_won == 'o' ? game->ui->color_o : game->ui->color_x));
-            Ui_print_string("!\n", game->ui->ui_mode);
+            if(!(game->playerx->input_type == 'b' && game->playero->input_type == 'b')){
+                Ui_print_string("Small game won by ", game->ui->ui_mode);
+                Ui_print_color(player_won, game->ui->ui_mode, (player_won == 'o' ? game->ui->color_o : game->ui->color_x));
+                Ui_print_string("!\n", game->ui->ui_mode);
+            }
         }
         game->last_move = move;
         Game_player_made_move(game);
-    } else{
+    } else if(!(game->playerx->input_type == 'b' && game->playero->input_type == 'b')){
         Ui_update(game->ui, game->board);
         Ui_print_string("Wrong move!\n", game->ui->ui_mode);
     }
@@ -66,7 +68,7 @@ bool Game_player_move(Game *game){
 void Game_player_made_move(Game *game){     // check if game won, switch active players
     game->game_won = BigBoard_won(game->board);
     if(game->game_won == '.') Player_swap(&(game->active_player));
-    Ui_update(game->ui, game->board);
+    if(!(game->playerx->input_type == 'b' && game->playero->input_type == 'b')) Ui_update(game->ui, game->board);
 
     if(game->game_won != '.') Game_over(game);
 }
@@ -78,6 +80,7 @@ bool Game_tick(Game *game){
 }
 
 void Game_over(Game *game){
+    Ui_update(game->ui, game->board);
     if(game->game_won != 'd') {
         Ui_print_string("Game won by ", game->ui->ui_mode);
         Ui_print_color(game->active_player, game->ui->ui_mode, (game->active_player == 'x' ? game->ui->color_x : game->ui->color_o));
