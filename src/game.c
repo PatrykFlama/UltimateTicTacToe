@@ -35,9 +35,8 @@ Player* Game_give_active_player(Game *game){
 }
 
 bool Game_player_move(Game *game){
-    if(game->ui->ui_mode == 't' && !(game->active_player == 'x' && game->playerx->input_type == 'b')){
-        // char *str = "Give coordinates of big board, then small board (first row, then column): "; // TODO: put this into tutorial
-        Ui_print_string("Active player ", game->ui->ui_mode);
+    if(!(game->active_player == 'x' && game->playerx->input_type == 'b') && !(game->active_player == 'o' && game->playero->input_type == 'b')){
+        if(game->playero->input_type != 'b') Ui_print_string("Active player ", game->ui->ui_mode);
         Ui_print(game->active_player, game->ui->ui_mode);
         Ui_print_string(": ", game->ui->ui_mode);
     }
@@ -48,7 +47,7 @@ bool Game_player_move(Game *game){
         char player_won = SmallBoard_won(BigBoard_choose_SmallBoard(game->board, 0, move.board));
         if(player_won != '.') {
             Ui_print_string("Small game won by ", game->ui->ui_mode);
-            Ui_print(player_won, game->ui->ui_mode);
+            Ui_print_color(player_won, game->ui->ui_mode, (player_won == 'o' ? game->ui->color_o : game->ui->color_x));
             Ui_print_string("!\n", game->ui->ui_mode);
         }
         game->last_move = move;

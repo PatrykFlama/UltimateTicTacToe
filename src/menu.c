@@ -61,6 +61,7 @@ void Menu_print(Menu *menu){
         Ui_print_string("followed by row and column of small board, in which you want to play.\n", menu->ui->ui_mode);
         Ui_print_string("Active board is marked by yellow color and you have to play in it,\n", menu->ui->ui_mode);
         Ui_print_string("if there is no active board, then you can play in any board.\n", menu->ui->ui_mode);
+        Ui_print_string("TL;DR first goes [row] [col] for big board, then [row] [col] for small board\n", menu->ui->ui_mode);
         Ui_print_string("\nPress q to return to main menu\n", menu->ui->ui_mode);
     }
 }
