@@ -30,6 +30,7 @@ bool SmallBoard_move_make(SmallBoard *board, int which_cell, char player){      
 }
 
 char SmallBoard_check_if_game_won(SmallBoard *board){        // and return who won
+    // TODO: repair - apparently not working
     FOR(row, board->board_size){        // check rows
         char player = *(board->tab + row*board->board_size);
         if(player == '.') goto row_loop;

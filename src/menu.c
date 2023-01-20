@@ -26,7 +26,7 @@ bool Menu_loop(Menu *menu){
         menu->menu_option = 'm';
     } else {
         return true;
-    }
+    }           // TODO: menu option - help/instructions
 
     return false;
 }
