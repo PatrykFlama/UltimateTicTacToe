@@ -6,8 +6,8 @@ void Menu_init(Menu *menu, Ui* _ui, bool _debug){
     menu->menu_option = 'm';
 
     menu->board_size = 3;
-    menu->player1 = 't';
-    menu->player2 = 't';
+    menu->player1 = 'p';
+    menu->player2 = 'p';
 }
 
 bool Menu_loop(Menu *menu){
