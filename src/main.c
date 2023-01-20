@@ -10,12 +10,17 @@
 int main(int argc, char** argv){
     // how to run: ./main.exe $ui_mode$
     int board_size = 3;
-    char ui_mode = 't';
+    char ui_mode = 'g';
     bool debug = false;
 
     if(argc > 1 && argv[1][1] == 'd') debug = true;
     if(argc > 1) ui_mode = argv[1][0];
-    if(ui_mode != 't' && ui_mode != 'g') ui_mode = 't';
+    if(ui_mode != 't' && ui_mode != 'g') ui_mode = 'g';
+
+    #ifdef _WIN32
+    ui_mode = 't';
+    #endif
+    printf("ncrs: %c\n", ui_mode);
 
     Ui ui;
     Ui_init(&ui, ui_mode);

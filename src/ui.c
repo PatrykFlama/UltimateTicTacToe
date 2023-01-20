@@ -14,6 +14,14 @@ void Ui_init(Ui *ui, char _ui_mode){
     ui->color_empty = Blue;
     ui->color_empty_active = Yellow;
     ui->debug = false;
+
+    if(ui->ui_mode == 'g'){
+        initscr();
+    }
+}
+
+void Ui_end(){
+    endwin();
 }
 
 void Ui_clear(Ui *ui){
@@ -21,13 +29,14 @@ void Ui_clear(Ui *ui){
         if(ui->debug) return;
         printf("\e[1;1H\e[2J");
     } else{                     // gui clear
-
+        clear();
     }
 }
 
 void Ui_update(Ui *ui, BigBoard *board){
     Ui_clear(ui);
     Ui_draw(ui, board);
+    if(ui->ui_mode == 'g') refresh();
 }
 
 void Ui_draw(Ui *ui, BigBoard *board){
@@ -67,7 +76,6 @@ void Ui_draw_BigBoard(Ui *ui, BigBoard *board){
 }
 
 void Ui_draw_SmallBoard(Ui *ui, SmallBoard *board, int row){
-    // printf("Active board: %d\n", *(ui->active_board));
     FOR(col, board->board_size){
         char player = board->tab[col + row*board->board_size];
 
@@ -103,7 +111,7 @@ void Ui_print_terminal(char c, enum TerminalColors color){
 }
 
 void Ui_print_gui(char c, enum TerminalColors color){
-    // TODO
+    printw("%c", c);
 }
 
 char Ui_get_char(char mode){
@@ -111,7 +119,7 @@ char Ui_get_char(char mode){
         char c; scanf(" %c", &c);
         return c;
     } else{     // gui
-        
+        return getch();
     }
 }
 
@@ -120,6 +128,7 @@ int Ui_get_int(char mode){
         int n; scanf(" %d", &n);
         return n;
     } else{     // gui
-        
+        int n; scanw(" %d", &n);
+        return n;
     }
 }

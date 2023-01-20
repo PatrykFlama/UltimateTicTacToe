@@ -7,6 +7,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
+// --NCurses--
+#ifndef _WIN32
+#include <ncurses.h>
+#define ncurses true
+#endif
+
+#ifdef _WIN32
+#define ncurses false
+#define initscr()                               //? ncruses
+#define printw(...) printf(__VA_ARGS__)         //? ncruses            
+#define scanw(...) scanf(__VA_ARGS__)           //? ncurses 
+#define getch() getchar()                       //? ncruses       
+#define refresh()                               //? ncruses
+#define clear() printf("\e[1;1H\e[2J");         //? ncruses                    
+#define endwin()                                //? ncruses
+#endif
+
 // #include <string.h>
 // #include <math.h>
 // #include <ctype.h>
