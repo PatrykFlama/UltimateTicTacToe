@@ -26,6 +26,4 @@ void Game_player_made_move(Game *game);     // check if game won, switch active 
 bool Game_tick(Game *game);
 void Game_over(Game *game);
 
-// TODO: functions to give info for bot
-
 #endif

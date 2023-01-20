@@ -34,11 +34,11 @@ bool SmallBoard_move_make(SmallBoard *board, int which_cell, char player){      
 char SmallBoard_check_if_game_won(SmallBoard *board){        // and return who won
     // TODO: repair - apparently not working
     FOR(row, board->board_size){        // check rows
-        char player = *(board->tab + row*board->board_size);
+        char player = board->tab[row*board->board_size];
         if(player == '.') goto row_loop;
 
         FOR(col, 1, board->board_size){
-            if(*(board->tab + row*board->board_size + col) != player){
+            if(board->tab[row*board->board_size + col] != player){
                 goto row_loop;
             }
         }
@@ -47,11 +47,11 @@ char SmallBoard_check_if_game_won(SmallBoard *board){        // and return who w
     }
 
     FOR(col, board->board_size){        // check cols
-        char player = *(board->tab + col);
+        char player = board->tab[col];
         if(player == '.') goto col_loop;
 
         FOR(row, 1, board->board_size){
-            if(*(board->tab + col + row*board->board_size) != player){
+            if(board->tab[row*board->board_size + col] != player){
                 goto col_loop;
             }
         }
@@ -60,20 +60,20 @@ char SmallBoard_check_if_game_won(SmallBoard *board){        // and return who w
         col_loop:;
     }
 
-    char player = *(board->tab);        // check diagonals
-    if(player == '.') goto next_step;
+    char player = board->tab[0];        // check diagonals
+    if(player == '.') goto next_diagonal;
     FOR(i, 1, board->board_size){
-        if(*(board->tab + i + i*board->board_size) != player){
-            goto next_step;
+        if(board->tab[i + i*board->board_size] != player){
+            goto next_diagonal;
         }
     }
     return player;
 
-    next_step:
-    player = *(board->tab + board->board_size - 1);
+    next_diagonal:
+    player = board->tab[board->board_size - 1];
     if(player == '.') goto check_for_draw;
-    FOR(i, 1, board->board_size){
-        if(*(board->tab - i + i*board->board_size) != player){
+    FOR(i, 0, board->board_size-1){
+        if(board->tab[i + i*board->board_size] != player){
             goto check_for_draw;
         }
     }
