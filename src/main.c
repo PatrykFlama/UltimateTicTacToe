@@ -17,22 +17,22 @@ int main(int argc, char** argv){
     if(argc > 1) ui_mode = argv[1][0];
     if(ui_mode != 't' && ui_mode != 'g') ui_mode = 't';
 
+    Ui ui;
+    Ui_init(&ui, ui_mode);
+    ui.debug = debug;
+    
     Menu menu;
-    Menu_init(&menu, debug);
+    Menu_init(&menu, &ui, debug);
     while(!Menu_loop(&menu)) {}
-    Menu_end(&menu);
+    Menu_end(&menu, ui_mode);
     board_size = menu.board_size;
-    ui_mode = menu.ui_mode;
 
     Player player1, player2;
-    Ui ui;
     Game game;
     BigBoard board;
     
     Player_init(&player1, &board, menu.player1);
     Player_init(&player2, &board, menu.player2);
-    Ui_init(&ui, ui_mode);
-    ui.debug = debug;
 
     SmallBoard boards[menu.board_size*menu.board_size];
     BigBoard_init(&board, boards, menu.board_size);    

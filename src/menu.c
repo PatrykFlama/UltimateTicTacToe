@@ -1,10 +1,10 @@
 #include "menu.h"
 
-void Menu_init(Menu *menu, bool _debug){
+void Menu_init(Menu *menu, Ui* _ui, bool _debug){
+    menu->ui = _ui;
     menu->debug = _debug;
     menu->menu_option = 'm';
 
-    menu->ui_mode = 't';
     menu->board_size = 3;
     menu->player1 = 't';
     menu->player2 = 't';
@@ -18,25 +18,25 @@ bool Menu_loop(Menu *menu){
     } else if(menu->menu_option == 'g'){
         Menu_action_change_gamemode(menu);
         menu->menu_option = 'm';
-    } else if(menu->menu_option == 'u'){
-        Menu_action_change_ui(menu);
-        menu->menu_option = 'm';
     } else if(menu->menu_option == 'b'){
         Menu_action_change_board_size(menu);
         menu->menu_option = 'm';
+    } else if(menu->menu_option == 'h'){
+        Menu_action_help_page(menu);
+        menu->menu_option = 'm';
     } else {
         return true;
-    }           // TODO: menu option - help/instructions
+    }
 
     return false;
 }
 
 char Menu_get_option(char type){
-    if(type == 'c'){
+    if(type == 'c'){        // get char
         char option;
         scanf(" %c", &option);
         return option;
-    } else if(type == 'i'){
+    } else if(type == 'i'){ // get int
         int option;
         scanf(" %d", &option);
         return option;
@@ -44,26 +44,28 @@ char Menu_get_option(char type){
 }
 
 void Menu_print(Menu *menu){
-    if(!menu->debug) printf("\e[1;1H\e[2J");
+    if(!menu->debug) Ui_clear(menu->ui);
 
     if(menu->menu_option == 'm'){
-        printf("Select menu option:\n");
-        printf("s - start game!\n");
-        printf("g - change gamemode\n");
-//         printf("u - change display mode\n");
-        printf("b - change board size\n");
+        Ui_print_string("Select menu option:\n", menu->ui->ui_mode);
+        Ui_print_string("s - start game!\n", menu->ui->ui_mode);
+        Ui_print_string("g - change gamemode\n", menu->ui->ui_mode);
+        Ui_print_string("b - change board size\n", menu->ui->ui_mode);
+        Ui_print_string("h - how to play\n", menu->ui->ui_mode);
     } else if(menu->menu_option == 'g'){
-        printf("Select gamemode:\n");
-        printf("1 - player vs player\n");
-        printf("2 - player vs bot\n");
-        printf("3 - bot vs bot\n");
-    } else if(menu->menu_option == 'u'){
-        printf("Select display mode:\n");
-        printf("t - display in terminal\n");
-//         printf("g - display in gui (not working)\n");       // TODO gui is wip
+        Ui_print_string("Select gamemode:\n", menu->ui->ui_mode);
+        Ui_print_string("1 - player vs player\n", menu->ui->ui_mode);
+        Ui_print_string("2 - player vs bot\n", menu->ui->ui_mode);
+        Ui_print_string("3 - bot vs bot\n", menu->ui->ui_mode);
     } else if(menu->menu_option == 'b'){
-        printf("Change board size:\n");
-        printf("input new board size:\n");
+        Ui_print_string("Input new board size:\n", menu->ui->ui_mode);
+    } else if(menu->menu_option == 'h'){
+        Ui_print_string("How to play:\n", menu->ui->ui_mode);
+        Ui_print_string("When it is your turn, input row and column of big board,\n", menu->ui->ui_mode);
+        Ui_print_string("followed by row and column of small board, in which you want to play.\n", menu->ui->ui_mode);
+        Ui_print_string("Active board is marked by yellow color and you have to play in it,\n", menu->ui->ui_mode);
+        Ui_print_string("if there is no active board, then you can play in any board.\n", menu->ui->ui_mode);
+        Ui_print_string("\nPress q to return to main menu\n", menu->ui->ui_mode);
     }
 }
 
@@ -85,21 +87,20 @@ void Menu_action_change_gamemode(Menu *menu){
     }
 }
 
-void Menu_action_change_ui(Menu *menu){
-    char ui = Menu_get_option('c');
-    menu->ui_mode = ui;
-}
-
 void Menu_action_change_board_size(Menu *menu){
     int size = Menu_get_option('i');
     menu->board_size = size;
 }
 
-void Menu_end(Menu *menu){
-    if(menu->ui_mode == 't'){
+void Menu_action_help_page(Menu *menu){
+    Menu_get_option('c');
+}
+
+void Menu_end(Menu *menu, char ui_mode){
+    if(ui_mode == 't'){
         if(menu->player1 == 'p') menu->player1 = 't';
         if(menu->player2 == 'p') menu->player2 = 't';
-    } else if(menu->ui_mode == 'g'){
+    } else if(ui_mode == 'g'){
         if(menu->player1 == 'p') menu->player1 = 'g';
         if(menu->player2 == 'p') menu->player2 = 'g';
     }
