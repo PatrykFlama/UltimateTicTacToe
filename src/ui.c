@@ -17,7 +17,21 @@ void Ui_init(Ui *ui, char _ui_mode){
 
     if(ui->ui_mode == 'g'){
         initscr();
+        Ui_init_colors();
     }
+}
+
+void Ui_init_colors(){
+    start_color();
+    init_pair(Clear, COLOR_WHITE, A_NORMAL);
+    init_pair(Black, COLOR_BLACK, A_NORMAL);
+    init_pair(Red, COLOR_RED, A_NORMAL);
+    init_pair(Green, COLOR_GREEN, A_NORMAL);
+    init_pair(Yellow, COLOR_YELLOW, A_NORMAL);
+    init_pair(Blue, COLOR_BLUE, A_NORMAL);
+    init_pair(Purple, COLOR_MAGENTA, A_NORMAL);
+    init_pair(Cyan, COLOR_CYAN, A_NORMAL);
+    init_pair(White, COLOR_WHITE, A_NORMAL);
 }
 
 void Ui_end(){
@@ -111,7 +125,9 @@ void Ui_print_terminal(char c, enum TerminalColors color){
 }
 
 void Ui_print_gui(char c, enum TerminalColors color){
+    attron(COLOR_PAIR(color));
     printw("%c", c);
+    attroff(COLOR_PAIR(color));
 }
 
 char Ui_get_char(char mode){

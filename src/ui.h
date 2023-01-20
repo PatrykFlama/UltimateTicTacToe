@@ -36,6 +36,7 @@ typedef struct Ui{
 } Ui;
 
 void Ui_init(Ui *ui, char _ui_mode);
+void Ui_init_colors();
 void Ui_update(Ui *ui, BigBoard *board);
 void Ui_end();
 

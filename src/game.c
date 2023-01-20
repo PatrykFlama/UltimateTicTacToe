@@ -78,9 +78,13 @@ bool Game_tick(Game *game){
 }
 
 void Game_over(Game *game){
-    Ui_print_string("Game won by ", game->ui->ui_mode);
-    Ui_print_color(game->active_player, game->ui->ui_mode, (game->active_player == 'x' ? game->ui->color_x : game->ui->color_o));
-    Ui_print('\n', game->ui->ui_mode);
+    if(game->game_won != 'd') {
+        Ui_print_string("Game won by ", game->ui->ui_mode);
+        Ui_print_color(game->active_player, game->ui->ui_mode, (game->active_player == 'x' ? game->ui->color_x : game->ui->color_o));
+        Ui_print('\n', game->ui->ui_mode);
+    } else{
+        Ui_print_string("Draw! No one wins :<\n", game->ui->ui_mode);
+    }
 
     if(game->ui->ui_mode == 'g'){
         Ui_print_string("Press any key to continue\n", game->ui->ui_mode);

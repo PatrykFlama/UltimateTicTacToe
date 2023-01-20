@@ -23,13 +23,12 @@
 #define refresh()                               //? ncruses
 #define clear() printf("\e[1;1H\e[2J");         //? ncruses                    
 #define endwin()                                //? ncruses
+#define start_color()
+#define init_pair(index, foreground, background)
+#define init_color(color, R, G, B)
+#define attron(...)
+#define attroff(...)
 #endif
-
-// #include <string.h>
-// #include <math.h>
-// #include <ctype.h>
-// #include <stddef.h>
-// #include <float.h>
 
 /* --- SUPERFOR --- */
 #define GET_MACRO_FOR(_1, _2, _3, _4, NAME, ...) NAME
