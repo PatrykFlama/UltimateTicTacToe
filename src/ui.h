@@ -28,6 +28,22 @@ enum TerminalColors{
     Highlight2Yellow,
     Highlight2Blue,
     Highlight2White,
+
+    Highlight3Clear,
+    Highlight3Black,
+    Highlight3Red,
+    Highlight3Green,
+    Highlight3Yellow,
+    Highlight3Blue,
+    Highlight3White,
+
+    Highlight4Clear,
+    Highlight4Black,
+    Highlight4Red,
+    Highlight4Green,
+    Highlight4Yellow,
+    Highlight4Blue,
+    Highlight4White,
 };
 #define number_of_colors 7
 
@@ -45,7 +61,7 @@ typedef struct Ui{
     char ui_mode;       // t - terminal, g - gui
     enum TerminalColors color_x, color_o, color_empty, color_empty_active;
     int *active_board;
-    bool debug;
+    bool fun;
 } Ui;
 
 void Ui_init(Ui *ui, char _ui_mode);

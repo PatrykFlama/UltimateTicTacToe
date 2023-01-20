@@ -24,14 +24,14 @@ Move Player_get_move(Player *player, BigBoard *board, Ui *ui){
             move.board = *board->active_board, move.cell = 0;
         } else{
             move.board = 0, move.cell = 0;
-            Player_set_highlight_board(&move, board, 1);
+            Player_set_highlight_board(&move, board, 1, ui);
             Ui_update(ui, board);
             Ui_print_active_player(ui, player->char_);
 
             while(Player_get_move_board_gui(player, board, &move, ui)){}
         }
 
-        Player_set_highlight_board(&move, board, 0);
+        Player_set_highlight_board(&move, board, 0, ui);
         Player_set_highlight_cell(&move, BigBoard_choose_SmallBoard(board, 0, move.board), 2);
         Ui_update(ui, board);
         Ui_print_active_player(ui, player->char_);
@@ -80,8 +80,15 @@ Move Player_get_move(Player *player, BigBoard *board, Ui *ui){
     return move;
 }
 
-void Player_set_highlight_board(Move *move, BigBoard *board, int val){
-    BigBoard_choose_SmallBoard(board, 0, move->board)->highlight = val;
+void Player_set_highlight_board(Move *move, BigBoard *board, int val, Ui* ui){
+    if(!ui->fun) BigBoard_choose_SmallBoard(board, 0, move->board)->highlight = val;
+    else{
+        if(val == 0){
+            if(BigBoard_choose_SmallBoard(board, 0, move->board)->game_won == 'o') BigBoard_choose_SmallBoard(board, 0, move->board)->highlight = 3;
+            else if(BigBoard_choose_SmallBoard(board, 0, move->board)->game_won == 'x') BigBoard_choose_SmallBoard(board, 0, move->board)->highlight = 4;
+            else BigBoard_choose_SmallBoard(board, 0, move->board)->highlight = 0;
+        } else BigBoard_choose_SmallBoard(board, 0, move->board)->highlight = val;
+    }
 }
 
 void Player_set_highlight_cell(Move *move, SmallBoard *board, int val){
@@ -90,7 +97,7 @@ void Player_set_highlight_cell(Move *move, SmallBoard *board, int val){
 
 bool Player_get_move_board_gui(Player *player, BigBoard *board, Move *move, Ui *ui){
     int key = getch();
-    Player_set_highlight_board(move, board, 0);
+    Player_set_highlight_board(move, board, 0, ui);
 
     if(key == KEY_UP){
         if(move->board / board->board_size > 0) move->board -= board->board_size;
@@ -101,11 +108,11 @@ bool Player_get_move_board_gui(Player *player, BigBoard *board, Move *move, Ui *
     } else if(key == KEY_RIGHT){
         if(move->board % board->board_size < board->board_size-1) move->board += 1;
     } else if(key == '\n'){
-        Player_set_highlight_board(move, board, 1);
+        Player_set_highlight_board(move, board, 1, ui);
         return false;
     }
 
-    Player_set_highlight_board(move, board, 1);
+    Player_set_highlight_board(move, board, 1, ui);
 
     Ui_update(ui, board);
     Ui_print_active_player(ui, player->char_);

@@ -11,9 +11,9 @@ int main(int argc, char** argv){
     // how to run: ./main.exe $ui_mode$
     int board_size = 3;
     char ui_mode = 'g';
-    bool debug = false;
+    bool fun = false;
 
-    if(argc > 1 && argv[1][1] == 'd') debug = true;
+    if(argc > 1 && argv[1][1] == 'd') fun = true;
     if(argc > 1) ui_mode = argv[1][0];
     if(ui_mode != 't' && ui_mode != 'g') ui_mode = 'g';
 
@@ -23,10 +23,10 @@ int main(int argc, char** argv){
 
     Ui ui;
     Ui_init(&ui, ui_mode);
-    ui.debug = debug;
+    ui.fun = fun;
     
     Menu menu;
-    Menu_init(&menu, &ui, debug);
+    Menu_init(&menu, &ui, fun);
     while(!Menu_loop(&menu)) {}
     Menu_end(&menu, ui_mode);
     board_size = menu.board_size;

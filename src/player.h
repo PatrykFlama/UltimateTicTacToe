@@ -16,7 +16,7 @@ Move Player_get_move(Player *player, BigBoard *board, Ui *ui);
 void Player_swap(char *player);
 bool Player_get_move_board_gui(Player *player, BigBoard *board, Move *move, Ui *ui);
 bool Player_get_move_cell_gui(Player *player, BigBoard *big_board, SmallBoard *board, Move *move, Ui *ui);
-void Player_set_highlight_board(Move *move, BigBoard *board, int val);
+void Player_set_highlight_board(Move *move, BigBoard *board, int val, Ui* ui);
 void Player_set_highlight_cell(Move *move, SmallBoard *board, int val);
 
 #endif

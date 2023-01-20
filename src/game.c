@@ -46,7 +46,7 @@ bool Game_player_move(Game *game){
 
     bool success = BigBoard_move_make(game->board, move.board, move.cell, game->active_player, game->last_move);
     if(success){
-        char player_won = SmallBoard_won(BigBoard_choose_SmallBoard(game->board, 0, move.board));
+        char player_won = SmallBoard_won(BigBoard_choose_SmallBoard(game->board, 0, move.board), game->ui->fun);
         if(player_won != '.') {
             if(!(game->playerx->input_type == 'b' && game->playero->input_type == 'b')){
                 Ui_print_string("Small game won by ", game->ui->ui_mode);

@@ -1,8 +1,8 @@
 #include "menu.h"
 
-void Menu_init(Menu *menu, Ui* _ui, bool _debug){
+void Menu_init(Menu *menu, Ui* _ui, bool _fun){
     menu->ui = _ui;
-    menu->debug = _debug;
+    menu->fun = _fun;
     menu->menu_option = 'm';
 
     menu->board_size = 3;
@@ -40,7 +40,7 @@ char Menu_get_option(Menu *menu, char type){
 }
 
 void Menu_print(Menu *menu){
-    if(!menu->debug) Ui_clear(menu->ui);
+    if(!menu->fun) Ui_clear(menu->ui);
 
     if(menu->menu_option == 'm'){
         Ui_print_string("Select menu option:\n", menu->ui->ui_mode);

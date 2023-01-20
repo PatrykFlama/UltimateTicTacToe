@@ -16,6 +16,6 @@ void SmallBoard_init(SmallBoard *board, int _board_size, int _board_number);
 void SmallBoard_delete(SmallBoard *board);
 bool SmallBoard_move_make(SmallBoard *board, int move, char player);
 char SmallBoard_check_if_game_won(SmallBoard *board);
-char SmallBoard_won(SmallBoard *board);
+char SmallBoard_won(SmallBoard *board, bool fun);
 
 #endif

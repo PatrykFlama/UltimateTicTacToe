@@ -87,8 +87,15 @@ char SmallBoard_check_if_game_won(SmallBoard *board){        // and return who w
     return 'd';
 }
 
-char SmallBoard_won(SmallBoard *board){                     // check who won, save it and return it
+char SmallBoard_won(SmallBoard *board, bool fun){                     // check who won, save it and return it
     char player = SmallBoard_check_if_game_won(board);
     board->game_won = player;
+    if(fun){
+        if(player == 'x'){
+            board->highlight = 4;
+        } else if(player == 'o'){
+            board->highlight = 3;
+        }
+    }
     return player;
 }

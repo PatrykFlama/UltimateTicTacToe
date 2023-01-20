@@ -13,7 +13,7 @@ void Ui_init(Ui *ui, char _ui_mode){
     ui->color_o = Green;
     ui->color_empty = Blue;
     ui->color_empty_active = Yellow;
-    ui->debug = false;
+    ui->fun = false;
 
     if(ui->ui_mode == 'g'){
         initscr();
@@ -50,6 +50,22 @@ void Ui_init_colors(){
     init_pair(Highlight2Yellow, COLOR_YELLOW, COLOR_CYAN);
     init_pair(Highlight2Blue, COLOR_BLUE, COLOR_CYAN);
     init_pair(Highlight2White, COLOR_WHITE, COLOR_CYAN);
+
+    init_pair(Highlight3Clear, COLOR_WHITE, COLOR_GREEN);
+    init_pair(Highlight3Black, COLOR_BLACK, COLOR_GREEN);
+    init_pair(Highlight3Red, COLOR_RED, COLOR_GREEN);
+    init_pair(Highlight3Green, COLOR_GREEN, COLOR_GREEN);
+    init_pair(Highlight3Yellow, COLOR_YELLOW, COLOR_GREEN);
+    init_pair(Highlight3Blue, COLOR_BLUE, COLOR_GREEN);
+    init_pair(Highlight3White, COLOR_WHITE, COLOR_GREEN);
+
+    init_pair(Highlight4Clear, COLOR_WHITE, COLOR_RED);
+    init_pair(Highlight4Black, COLOR_BLACK, COLOR_RED);
+    init_pair(Highlight4Red, COLOR_RED, COLOR_RED);
+    init_pair(Highlight4Green, COLOR_GREEN, COLOR_RED);
+    init_pair(Highlight4Yellow, COLOR_YELLOW, COLOR_RED);
+    init_pair(Highlight4Blue, COLOR_BLUE, COLOR_RED);
+    init_pair(Highlight4White, COLOR_WHITE, COLOR_RED);
 }
 
 void Ui_end(){
@@ -58,7 +74,7 @@ void Ui_end(){
 
 void Ui_clear(Ui *ui){
     if(ui->ui_mode == 't'){            // terminal clear
-        if(ui->debug) return;
+        if(ui->fun) return;
         printf("\e[1;1H\e[2J");
     } else{                     // gui clear
         clear();

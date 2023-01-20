@@ -9,13 +9,13 @@ typedef struct Menu{
     char menu_option;   // m - main, 
                         // g - change gamemode, 
                         // u - change ui mode
-    bool debug;
+    bool fun;
 
     int board_size;
     char player1, player2;
 } Menu;
 
-void Menu_init(Menu *menu, Ui* _ui, bool _debug);     // set default values
+void Menu_init(Menu *menu, Ui* _ui, bool _fun);     // set default values
 
 bool Menu_loop(Menu *menu);
 void Menu_end(Menu *menu, char ui_mode);
