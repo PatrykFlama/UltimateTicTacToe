@@ -73,8 +73,8 @@ void Ui_end(){
 }
 
 void Ui_clear(Ui *ui){
+    // if(ui->fun) return;
     if(ui->ui_mode == 't'){            // terminal clear
-        if(ui->fun) return;
         printf("\e[1;1H\e[2J");
     } else{                     // gui clear
         clear();

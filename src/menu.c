@@ -40,7 +40,7 @@ char Menu_get_option(Menu *menu, char type){
 }
 
 void Menu_print(Menu *menu){
-    if(!menu->fun) Ui_clear(menu->ui);
+    Ui_clear(menu->ui);
 
     if(menu->menu_option == 'm'){
         Ui_print_string("Select menu option:\n", menu->ui->ui_mode);
