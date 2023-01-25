@@ -35,4 +35,4 @@ Total : 23 files,  936 codes, 47 comments, 204 blanks, all 1187 lines
 | [src/ui.c](/src/ui.c) | C | 159 | 8 | 27 | 194 |
 | [src/ui.h](/src/ui.h) | C | 76 | 0 | 13 | 89 |
 
-[Summary](results.md) / Details
+[Summary](README.md) / Details
