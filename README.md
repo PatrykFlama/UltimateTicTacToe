@@ -10,7 +10,8 @@ If small board game has been won, then the player who won it claims square with 
 Tested on Windows 11, version 10.0.22621 (without NCurses GUI)\
 Tested on Ubuntu 22.04.1 LTS on WSL\
 In termianl UI mode should work on all operating systems, in NCurses GUI mode should work on all OSs with NCurses (so not on Windows).\
-To run game simply execute _run.bat [ui mode g(default)/t]_ file located in main folder. The game will compile and run. Other option is to use gcc and compile all .c files in _src_ folder.
+To run game simply execute _run.bat [ui mode g(default)/t]_ file located in main folder. The game will compile and run. Other option is to use gcc and compile all .c files in _src_ folder.\
+You can also use makefile: _make main_ or _make uttt_.
 
 ## How to 'use'
 In terminal UI mode to input your move enter big board row and column followed by small board row and column.\
