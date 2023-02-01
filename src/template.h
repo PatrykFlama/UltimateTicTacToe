@@ -29,6 +29,7 @@
 #define attron(...)                             //? ncruses
 #define attroff(...)                            //? ncruses
 #define keypad(...)
+#define noecho()
 
 #define KEY_UP 'k'
 #define KEY_DOWN 'k'
