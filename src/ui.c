@@ -19,7 +19,8 @@ void Ui_init(Ui *ui, char _ui_mode){
         initscr();
         Ui_init_colors();
         keypad(stdscr, TRUE);
-        noecho();
+        // noecho();
+        curs_set(0);
     }
 }
 
